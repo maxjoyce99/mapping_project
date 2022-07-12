@@ -1,0 +1,99 @@
+const Location = require("../models/locationModel");
+const mongoose = require("mongoose");
+const multer = require("multer");
+
+//get all locations
+const getAllLocations = async(req,res) => {
+    const locations = await Location.find({}).sort({createdAt: -1});
+
+    res.status(200).json(locations);
+}
+
+
+//get one location
+const getLocation = async(req,res) => {
+    const { id } = req.params; //gets id from route paramaters
+
+    if(!mongoose.Types.ObjectId.isValid(id)){ //if invalid id send error
+        return res.status(404).json({error: 'No such location'});
+    }
+
+    const location = await Location.findById(id);
+
+    if(!location) { //if not location send error
+        return res.status(404).json({error: 'No such location'});
+    }
+
+    res.status(200).json(location);
+}
+
+//Post a new location
+const createLocation = async(req,res) => {
+    const { name, place } = req.body;
+
+    //Add a document to database
+    try{
+        const location =  await Location.create({ name, place});
+        res.status(200).json(location);
+    }catch(err) {
+        res.status(400).json({err});
+        console.log(err);
+    }
+    console.log("Posting a new location");
+}
+
+//Post new pictures (multer middleware in routes file)
+const postPictures = async(req,res) => {
+    console.log("Posting Pictures");
+    console.log(req.files);
+    res.send('File upload success')
+    
+}
+
+//delete a location
+const deleteLocation = async(req,res) => {
+    const { id } = req.params; //gets id from route paramaters
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'No such location to delete'});
+    }
+
+    const location = await Location.findOneAndDelete({_id: id});
+
+    if(!location) { //if no location send error
+        return res.status(404).json({error: 'No such location to delete'});
+    }
+
+    res.status(200).json(location);
+
+
+}
+
+//Update a location 
+const updateLocation = async(req,res) => {
+    const { id } = req.params; //gets id from route paramaters
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'No such location to update'});
+    }
+
+    const location = await Location.findOneAndUpdate({_id: id}, {
+        ...req.body
+    });
+
+    if(!location) { //if no location send error
+        return res.status(404).json({error: 'No such location to update'});
+    }
+
+    res.status(200).json(location);
+
+}
+
+module.exports = {
+    createLocation,
+    getAllLocations,
+    getLocation,
+    deleteLocation,
+    updateLocation,
+    postPictures
+}
