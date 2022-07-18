@@ -6,6 +6,7 @@ const Pictures = () => {
     const {locations, dispatch} = useLocationsContext();
     const [ image, setImage ] = useState(null);
     const [imagePaths, setImagePaths] = useState([]);
+    const [loading,setLoading] = useState(true);
 
     /*const fetchImage = async () => {
         //"https://i.imgur.com/fHyEMsl.jpg"
@@ -31,21 +32,19 @@ const Pictures = () => {
                 var imagePathStart = "http://localhost:3001/uploads/"
                 imagePaths.push(imagePathStart + json[i]);
             }
+            setLoading(false);
             
         }
 
         fetchImages();
     },[]);
 
-
+    if(!loading){
     return (
             <div className="pictures">
                 
                   <p>Pictures Page</p> 
                   
-                <img src={"http://localhost:3001/uploads/1657816503325crystal2.jpg"} alt = "icons"></img>
-                
-
                 {imagePaths && imagePaths.map((path) => (
                         
                         <img src={path} alt = "icons"></img>
@@ -53,6 +52,12 @@ const Pictures = () => {
                 }
             </div>
         )
+    }
+    else {
+    return (
+        <p>Loading Pictures...</p>
+    )
+    }
             
 
 }
