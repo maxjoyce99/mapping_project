@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 require("dotenv").config();
-const locationRoutes = require("./routes/locationRoutes")
+const locationRoutes = require("./routes/locationRoutes");
+const pictureRoutes = require("./routes/pictureRoutes");
 
 const PORT = process.env.PORT || 3001;
 
@@ -18,13 +19,23 @@ var locationJSON = {
 //middleware
 app.use(express.json());
 
+//prints incoming requests
 app.use((req,res,next) => {
   console.log(req.path, req.method);
-  next()
+  next();
 })
+
+//Allows CORS for testing
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 //routes
 app.use("/api/locations", locationRoutes);
+app.use("/api/pictures", pictureRoutes);
+
+app.use('/uploads', express.static('uploads'));
 
 //Connect to database
 console.log(process.env.MONGO_URI);
@@ -39,6 +50,13 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(err);
 
   });
+
+//Get a picture
+/*app.get('/api/pictures', (req,res) => {
+  console.log("Getting pictures");
+  res.status(200);
+  res.send({message: "Cuck"});
+});*/
 
 
 /*app.get("/api", (req, res) => {
