@@ -92,7 +92,7 @@ const postPicturesFolder = async(req,res) => {
     });
 
     for(var i=0; i<req.files.length; i++){
-        fs.rename(path.join("./uploads", req.files[i].originalname),path.join("./uploads", id,req.files[i].originalname ),
+        fs.rename(path.join("./uploads", req.files[i].originalname),path.join("./uploads", id, Date.now() + req.files[i].originalname ),
         function(err) {
             if (err) throw err;
              console.log("File Renamed");
