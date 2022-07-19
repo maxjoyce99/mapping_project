@@ -19,10 +19,11 @@ const LocationDetails = ({location}) => {
 
     return(
         <div className="location-details">
-            <h4>{location.title}</h4>
-            <p><strong> Name : </strong>{location.name}</p>
-            <p><strong> Place : </strong>{location.place}</p>
-            <p>Created At: {location.createdAt}</p>
+            <h4 key="title">{location.title}</h4>
+            <p key="name"><strong> Name : </strong>{location.name}</p>
+            <p key="place"><strong> Place : </strong>{location.place}</p>
+            <p key="timeCreated">Created At: {location.createdAt}</p>
+            <p key="ID">Id {location._id}</p>
 
             <span onClick={handleDeleteClick}>Delete</span>
 

@@ -1,10 +1,10 @@
 
 import { useLocationsContext } from '../hooks/useLocationsContext';
 import { useState, useEffect } from 'react';
+import { Tooltip } from 'react-leaflet';
 
 //components
 import LocationDetails from '../components/LocationDetails';
-import LocationForm from '../components/LocationForm';
 
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import LocationMarker from  '../components/LocationMarker';
@@ -47,10 +47,9 @@ const Map = () => {
       
     ]
 
-    //if(!loading){
     return (
-            <div className="home">
-                <div className="locations">
+            <div key ="wholeMpaDiv" className="map">
+                <div key="locationdetails" className="locations">
                     {locations && locations.map((location) => (
                         
                         <LocationDetails key={location._id} location={location} />
@@ -59,14 +58,6 @@ const Map = () => {
                     
                     }
 
-                    {
-                    locations && locations.map((location) => (
-                        
-                        <p key={location._id}>{location.place[0]},  {location.place[1]}</p>
-                    ))
-                    
-                    
-                    }
                 </div>
                 <MapContainer className="map" center={centerPosition} zoom={3.5} scrollWheelZoom={true}>
             <TileLayer
@@ -75,9 +66,8 @@ const Map = () => {
             />
             
             {
- 
             locations && locations.map((location) => (
-                        <LocationMarker key={location._id} coord={location.place}/>
+                        <LocationMarker key={location._id} id={location._id} coord={location.place}/>
                     ))
                     
                     
@@ -85,6 +75,7 @@ const Map = () => {
             
             {//coordinates.map((coord)=><LocationMarker coord={coord}></LocationMarker>)
             }
+
             </MapContainer>
 
             
@@ -92,12 +83,6 @@ const Map = () => {
                 
             </div>
         )
-                 /* }
-                  else {
-                    return (
-                      <p>Loading...</p>
-                    )
-                  }*/
 
 }
 

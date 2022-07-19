@@ -31,8 +31,8 @@ const LocationForm = () => {
         const json = await response.json()
 
         if(!response.ok){
-            setError(json.err);
-            console.log(json.err);
+            setError(json.err.message);
+            console.log(json.err.message);
         }
         if(response.ok){
             setName('');
@@ -43,6 +43,7 @@ const LocationForm = () => {
             setError(null);
             console.log("New Location Added", json);
             dispatch({type: 'CREATE_LOCATION', payload: json});
+            fileSubmittedHandler(json._id);
         }
     }
 
@@ -52,22 +53,25 @@ const LocationForm = () => {
         
     }
 
-    const fileSubmittedHandler = async (event) => {
-        event.preventDefault();
+    const fileSubmittedHandler = async (id) => {
+        //event.preventDefault();
         //setFiles(event.target.files);
         console.log(files);
         const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append("images", files[i]);
+        if(files){
+            for (let i = 0; i < files.length; i++) {
+                formData.append("images", files[i]);
+            }
+            console.log(formData);
         }
-        console.log(formData);
 
-        const response = await fetch('/api/locations/pictures', {
+        const routePath = '/api/pictures/' + id; //adds id to the route path
+        const response = await fetch(routePath, {
             method: 'POST',
             body: formData,
         })
 
-        const json = await response.json()
+        const json = await response.json();
 
         if(!response.ok){
             setError(json.err);
@@ -75,7 +79,7 @@ const LocationForm = () => {
         }
         if(response.ok){
             setError(null);
-            console.log("New Picture Added", json);
+            console.log("New Picture(s) Added", json);
             
         }
 
@@ -108,13 +112,8 @@ const LocationForm = () => {
                 onChange={((e) => setLong(e.target.value))}
                 value={long}
             />
-
-           
-            <button>Add Location</button>
             
-        </form>
 
-        <form className="pictureCreate" onSubmit={fileSubmittedHandler}>
             <input
             type="file"
             onChange={fileSelectedHandler}

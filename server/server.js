@@ -7,16 +7,7 @@ const pictureRoutes = require("./routes/pictureRoutes");
 
 const PORT = process.env.PORT || 3001;
 
-var locationJSON = {
-    coordinates: [
-        [46.9233,-121.4760],
-        [40.758701, -111.876183],
-        [42.271389, -71.798889]
-    ]
-    
-}
-
-//middleware
+//json middleware
 app.use(express.json());
 
 //prints incoming requests
@@ -35,9 +26,10 @@ app.use((req, res, next) => {
 app.use("/api/locations", locationRoutes);
 app.use("/api/pictures", pictureRoutes);
 
+//static files middleware
 app.use('/uploads', express.static('uploads'));
 
-//Connect to database
+//Connect to database(waits to connect before starting server, should probably change this)
 console.log(process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
@@ -50,17 +42,5 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(err);
 
   });
-
-//Get a picture
-/*app.get('/api/pictures', (req,res) => {
-  console.log("Getting pictures");
-  res.status(200);
-  res.send({message: "Cuck"});
-});*/
-
-
-/*app.get("/api", (req, res) => {
-  res.json({locationJSON});
-});*/
 
 
