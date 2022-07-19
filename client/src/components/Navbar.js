@@ -10,7 +10,6 @@ const Navbar = () => {
 
                 </Link>
 
-
                 <Link to="/map">
                     <h1>Map</h1>
 
