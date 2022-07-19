@@ -22,12 +22,10 @@ const LocationDetails = ({location}) => {
             <h4 key="title">{location.title}</h4>
             <p key="name"><strong> Name : </strong>{location.name}</p>
             <p key="place"><strong> Place : </strong>{location.place}</p>
-            <p key="timeCreated">Created At: {location.createdAt}</p>
-            <p key="ID">Id {location._id}</p>
+            <p key="timeCreated"><strong> Time Created: </strong>{location.createdAt}</p>
 
-            <span onClick={handleDeleteClick}>Delete</span>
-
-
+            <button className="deletelocation" onClick={handleDeleteClick}>Delete</button>
+            <button className="modifylocation" onClick={handleDeleteClick}>Modify</button>
         </div>
     )
 }

@@ -30,23 +30,18 @@ const Edit = () => {
 
     //console.log(locations);
 
-
     return (
-            <div className="home">
+            <div className="edit">
                 <div className="locations">
                     {locations && locations.map((location) => (
-                        
-                        <LocationDetails key={location._id} location={location} />
-                    ))
-                    
-                    
+                        <LocationDetails key={"details" + location._id} location={location} />))
                     }
                 </div>
-                <LocationForm />    
+
+                <LocationForm />
                 
             </div>
         )
-            
 
 }
 

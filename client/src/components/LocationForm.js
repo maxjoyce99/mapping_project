@@ -46,12 +46,6 @@ const LocationForm = () => {
         }
     }
 
-    const fileSelectedHandler = async (event) => {
-        event.preventDefault();
-        setFiles(event.target.files);
-        
-    }
-
     const fileSubmittedHandler = async (id) => {
         console.log(files);
         const formData = new FormData();
@@ -72,6 +66,7 @@ const LocationForm = () => {
 
         if(!response.ok){
             setError(json.err);
+            setFiles(null);
             console.log(json.err);
         }
         if(response.ok){
@@ -79,15 +74,12 @@ const LocationForm = () => {
             console.log("New Picture(s) Added", json);
             
         }
-
-
     }
 
     return(
-        <>
-        <form className="create" onSubmit={handleSubmit}>
+        <div className="create">
+        <form className="createForm" onSubmit={handleSubmit}>
             <h3>Add a new location: </h3>
-
 
             <label>Location Name: </label>
             <input
@@ -113,15 +105,16 @@ const LocationForm = () => {
 
             <input
             type="file"
-            onChange={fileSelectedHandler}
+            onChange={((e) => setFiles(e.target.files))}
             name="images"
             multiple="yes"
+            className="formButtons"
             />
 
-            <button>Add Files</button>
+            <button className="formButtons">Add Files</button>
         </form>
         {error && <div className="error">{error}</div>}
-        </>
+        </div>
     )
 }
 
