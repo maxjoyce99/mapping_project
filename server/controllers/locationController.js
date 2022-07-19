@@ -42,14 +42,6 @@ const createLocation = async(req,res) => {
     console.log("Posting a new location");
 }
 
-//Post new pictures (multer middleware in routes file)
-const postPictures = async(req,res) => {
-    console.log("Posting Pictures");
-    console.log(req.files);
-    res.send('File upload success')
-    
-}
-
 //delete a location
 const deleteLocation = async(req,res) => {
     const { id } = req.params; //gets id from route paramaters
@@ -95,5 +87,4 @@ module.exports = {
     getLocation,
     deleteLocation,
     updateLocation,
-    postPictures
 }
