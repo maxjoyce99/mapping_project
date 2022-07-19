@@ -5,7 +5,6 @@ import { Tooltip } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-
 //gets proper icons and shadows (from stackoverflow)
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -36,7 +35,5 @@ const LocationMarker = (props) => {
     </Marker>
     )
 }
-
-
 
 export default LocationMarker;

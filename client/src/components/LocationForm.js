@@ -36,7 +36,6 @@ const LocationForm = () => {
         }
         if(response.ok){
             setName('');
-            //setPlace(''); 
             place =[];
             setLat(''); 
             setLong(''); 
@@ -54,8 +53,6 @@ const LocationForm = () => {
     }
 
     const fileSubmittedHandler = async (id) => {
-        //event.preventDefault();
-        //setFiles(event.target.files);
         console.log(files);
         const formData = new FormData();
         if(files){

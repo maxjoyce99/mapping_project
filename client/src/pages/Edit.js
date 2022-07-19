@@ -19,7 +19,7 @@ const Edit = () => {
                 dispatch({type: 'SET_LOCATIONS', payload: json})
             }
             else{
-                //console.log("Response not okay");
+                console.log("Locations could not be found.");
             }
         }
 

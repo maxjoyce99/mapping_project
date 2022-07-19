@@ -26,7 +26,7 @@ const Map = () => {
                 
             }
             else{
-                //console.log("Response not okay");
+                console.log("Locations could not be found.");
             }
 
 
@@ -39,50 +39,31 @@ const Map = () => {
     },[]);
 
     console.log(locations);
-    var coordinates = [
-      
-          [46.9233,-121.4760],
-          [40.758701, -111.876183],
-          [42.271389, -71.798889]
-      
-    ]
 
     return (
-            <div key ="wholeMpaDiv" className="map">
-                <div key="locationdetails" className="locations">
-                    {locations && locations.map((location) => (
-                        
-                        <LocationDetails key={location._id} location={location} />
-                    ))
-                    
-                    
-                    }
+        <div key ="wholeMpaDiv" className="map">
+            <div key="locationdetails" className="locations">
+                {locations && locations.map((location) => (  
+                    <LocationDetails key={location._id} location={location} />))
+                }
 
-                </div>
-                <MapContainer className="map" center={centerPosition} zoom={3.5} scrollWheelZoom={true}>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            
-            {
-            locations && locations.map((location) => (
-                        <LocationMarker key={location._id} id={location._id} coord={location.place}/>
-                    ))
-                    
-                    
-                  }
-            
-            {//coordinates.map((coord)=><LocationMarker coord={coord}></LocationMarker>)
-            }
+            </div>
 
+            <MapContainer className="map" center={centerPosition} zoom={3.5} scrollWheelZoom={true}>
+
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                
+                {locations && locations.map((location) => (
+                    <LocationMarker key={location._id} id={location._id} coord={location.place}/>))
+                }
+                
             </MapContainer>
 
-            
-    
-                
-            </div>
-        )
+        </div>
+    )
 
 }
 

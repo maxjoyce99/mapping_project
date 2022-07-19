@@ -78,9 +78,8 @@ const postPictures = async(req,res) => {
     
 }
 
+//post pictures folder function and multer object
 const postPicturesFolder = async(req,res) => {
-    
-    
     const { id } = req.params;
     console.log(id);
     console.log(req.files);
@@ -102,8 +101,7 @@ const postPicturesFolder = async(req,res) => {
 
     res.send(id);
 }
-
-//post pictures folder function
+//multer storage variable
 const storage2 = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './uploads');
@@ -117,8 +115,6 @@ const storage2 = multer.diskStorage({
 const upload2 = multer({
     storage: storage2
 });
-
-
 
 module.exports = { 
     getPictures,

@@ -7,18 +7,14 @@ import LocationForm from '../components/LocationForm';
 
 
 const Home = () => {
-
-
+    
     return (
             <div className="home">
-                
+
                   <p>Max's Homepage</p> 
-                
-                   
-                
+
             </div>
         )
-            
 
 }
 

@@ -17,7 +17,6 @@ body {
   color:#e7195a
 }
 
-
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -31,14 +30,17 @@ header .container {
   --primary: #1aac83;
   --error: #e7195a;
 }
+
 body {
   background: #f1f1f1;
   margin: 0;
   font-family: "Poppins";
 }
+
 header {
   background: #fff;
 }
+
 header .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -47,10 +49,12 @@ header .container {
   align-items: center;
   justify-content: space-between;
 }
+
 header a {
   color: #333;
   text-decoration: none;
 }
+
 .pages{
   max-width: 1400px;
   padding: 20px;
