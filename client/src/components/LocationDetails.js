@@ -15,18 +15,22 @@ const LocationDetails = ({location}) => {
         }
     }
 
+    const handleModifyClick = async () => {
+        console.log("Modify button clicked");
+    }
+
 
 
     return(
-        <div className="location-details">
+        <ul className="location-details">
             <h4 key="title">{location.title}</h4>
             <p key="name"><strong> Name : </strong>{location.name}</p>
             <p key="place"><strong> Place : </strong>{location.place}</p>
             <p key="timeCreated"><strong> Time Created: </strong>{location.createdAt}</p>
 
             <button className="deletelocation" onClick={handleDeleteClick}>Delete</button>
-            <button className="modifylocation" onClick={handleDeleteClick}>Modify</button>
-        </div>
+            <button className="modifylocation" onClick={handleModifyClick}>Modify</button>
+        </ul>
     )
 }
 

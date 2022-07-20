@@ -12,7 +12,7 @@ body {
 }
 
 .map{
-  height:100vh;
+  height:97vh;
   width:100vw;
 }
 
@@ -70,6 +70,7 @@ header a {
   float: top;
   border-spacing: 20px;
   width: 80vw;
+  position: relative;
 }
 
 
@@ -80,6 +81,8 @@ header a {
   padding: 12px 20px;
   display: inline-block;
   position: relative;
+  width: 300px;
+  height: 100px;
 }
 
 .deletelocation{
@@ -112,6 +115,10 @@ header a {
   cursor: pointer;
 }
 
+.modifylocation:hover {
+  background: #e7e7e7;
+}
+
 .create{
   top: 20px;
   right: 0px;
@@ -135,4 +142,20 @@ header a {
 
 .formButtons{
   cursor: pointer;
+}
+
+.pictures{
+  padding: 0px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 15px;
+
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-rows: repeat(auto-fit, 260px);
+  grid-auto-flow: dense;
+  grid-gap: 0.3rem;
 }

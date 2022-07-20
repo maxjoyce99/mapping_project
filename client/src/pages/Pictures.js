@@ -30,17 +30,23 @@ const Pictures = () => {
         console.log(imagePaths);
     },[]);
 
+    /*const style = {
+        gridColumnEnd: `span ${getSpanEstimate(image.width)}`,
+        gridRowEnd: `span ${getSpanEstimate(image.height)}`,
+      }*/
+
     if(!loading){
         return (
-                <div className="pictures">
+                <div className="picturesPage">
                     
                     <p>Pictures Page</p> 
-
+                    <div className="pictures">
                     {imagePaths && imagePaths.map((path) => (
                             
-                            <img key={path} src={path} alt = "icons"></img>
+                            <img key={path} src={path} alt = "icons" /*style={style}*/ width="100%"></img>
                         ))
                     }
+                    </div>
                 </div>
             )
         }

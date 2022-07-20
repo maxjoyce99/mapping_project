@@ -32,11 +32,11 @@ const Edit = () => {
 
     return (
             <div className="edit">
-                <div className="locations">
+                <ul className="locations">
                     {locations && locations.map((location) => (
                         <LocationDetails key={"details" + location._id} location={location} />))
                     }
-                </div>
+                </ul>
 
                 <LocationForm />
                 
