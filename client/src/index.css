@@ -145,12 +145,18 @@ header a {
 }
 
 .pictures{
-  padding: 0px;
+  padding: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
 
 }
+
+.picturesPage{
+  padding:20px
+}
+
+
 
 .gridContainer {
   display: grid;

@@ -50,7 +50,7 @@ const Map = () => {
                 />
                 
                 {locations && locations.map((location) => (
-                    <LocationMarker key={"marker" + location._id} id={location._id} coord={location.place}/>))
+                    <LocationMarker key={"marker" + location._id} id={location._id} coord={location.place} name={location.name}/>))
                 }
                 
             </MapContainer>

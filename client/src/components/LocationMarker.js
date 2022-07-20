@@ -24,12 +24,12 @@ const LocationMarker = (props) => {
     <Marker position={props.coord} eventHandlers={{
         click: (e) => {
           markerClicked(props.coord, props.id);
-          navigate("/pictures", {state: {id: props.id}});
+          navigate("/pictures", {state: {id: props.id, name:props.name}});
         },
     }}
     >
-      <Tooltip direction="top">
-        A pretty CSS3 popup. <br /> Easily customizable.
+      <Tooltip direction="top" offset="-10">
+        {props.name}
       </Tooltip>
         
     </Marker>
