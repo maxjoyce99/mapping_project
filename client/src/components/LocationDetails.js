@@ -1,6 +1,6 @@
 import { useLocationsContext } from "../hooks/useLocationsContext";
 import { confirmAlert } from "react-confirm-alert";
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import 'react-confirm-alert/src/react-confirm-alert.css'; //alert css. can make custom one eventually
 
 const LocationDetails = ({location}) => {
     const { dispatch } = useLocationsContext();
@@ -9,15 +9,15 @@ const LocationDetails = ({location}) => {
 
     const handleDeleteClick = async () => {
         confirmAlert({
-        title: 'Confirm to submit',
-        message: 'Are you sure to do this.',
+        title: 'Confirm Location Deletion',
+        message: 'Are you sure you want to delete this location? It will also delete all the pictures along with it.',
         buttons: [
           {
-            label: 'Yes',
-            onClick: handleDelete
+            label: 'Delete Location',
+            onClick: handleDelete,
           },
           {
-            label: 'No',
+            label: 'Cancel',
             onClick: () => console.log("Clicked No")
           }
         ]
@@ -33,6 +33,16 @@ const LocationDetails = ({location}) => {
 
             if(response.ok){
                 dispatch({type: 'DELETE_LOCATION', payload: json});
+            }
+
+            const picResponse = await fetch('/api/pictures/' + location._id, {
+                method: 'DELETE'
+            });
+
+            const picJson = await response;
+
+            if(!picResponse.ok){
+                console.log(picJson);
             }
     }
 

@@ -86,8 +86,12 @@ const postPicturesFolder = async(req,res) => {
 
     fs.mkdir(path.join("./uploads", id),
     function(err) {
-        if (err) throw err;
+        if (err){
+            console.log(err);
+        } else{
             console.log("Directory Made");
+        }
+            
     });
 
     for(var i=0; i<req.files.length; i++){
@@ -124,12 +128,32 @@ const upload2 = multer({
       }
 });
 
+//Delete pictures
+const deletePictures = async(req,res) => {
+    const { id } = req.params;
+    console.log("Deleting Pictures from folder: " + id);
+    
+    fs.rmdir(path.join("./uploads", id),
+    function(err) {
+        if (err){
+            console.log(err);
+        } else{
+            console.log("Directory Deleted");
+        }
+    });
+    
+    res.send("Deleting Pictures" + id);
+}
+
 module.exports = { 
     getPictures,
     postPictures,
     getPictureFolder,
     postPicturesFolder,
+    deletePictures,
     upload,
     upload2
 }
+
+
   

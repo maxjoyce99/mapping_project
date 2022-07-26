@@ -7,6 +7,7 @@ const {
     postPictures,
     getPictureFolder,
     postPicturesFolder,
+    deletePictures,
     upload,
     upload2
 } = require("../controllers/pictureController");
@@ -22,5 +23,8 @@ router.post('/', upload.array('images', 30), postPictures);
 
 //post new picture(s) to specific folder, middle arguement is a multer variable to post files
 router.post('/:id', upload2.array('images',30), postPicturesFolder);
+
+//delete pictures from folder
+router.delete('/:id', deletePictures)
 
 module.exports = router;
