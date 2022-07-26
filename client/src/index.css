@@ -135,8 +135,7 @@ header a {
   border: 2px solid black;
   border-radius: 4px;
   float: right;
-  width: 300px;
-  height: 400px;
+  height: 450px;
   margin: 10px;
 }
 
@@ -162,9 +161,20 @@ header a {
   grid-gap: 15px;
 }
 
-.createForm span{
+.nameErrorSpan{
   display: none;
   color: red;
+}
+.latErrorSpan{
+  display: none;
+  color: red;
+}
+.longErrorSpan{
+  display: none;
+  color: red;
+}
+.submitError{
+  display: block;
 }
 
 .createForm .nameInput:invalid[lastfocused = "nameInput"] ~ .nameErrorSpan {
@@ -177,6 +187,9 @@ header a {
   display: block;
 }
 
-.create span {
-  color: red;
+.createForm h3{
+  margin: 2px;
+}
+.submitError {
+  color:red;
 }

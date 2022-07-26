@@ -37,9 +37,6 @@ const LocationForm = () => {
 
         if(!response.ok){
             setError(json.error);
-            //console.log(json.err);
-            //setError("It's fucked");
-            console.log("Error: " + error);
         }
         if(response.ok){
             setName('');
@@ -92,7 +89,7 @@ const LocationForm = () => {
     return(
         <div className="create">
         <form className="createForm" onSubmit={handleSubmit}>
-            <h3>Add a new location: </h3>
+            <h3>Add a new location </h3>
  
             <label>Location Name: </label>
             <input
@@ -107,7 +104,8 @@ const LocationForm = () => {
                 lastfocused={lastFocused}
             />
             <span className="nameErrorSpan">Name should be 1-30 characters with no special characters.</span>
- 
+            {error && <span className="submitError">{error}</span>}
+
             <label>Location Latitude: </label>
             <input
                 className="latInput"
@@ -144,11 +142,15 @@ const LocationForm = () => {
             name="images"
             multiple="yes"
             className="formButtons"
+            accept=".png, .jpg, .jpeg, .gif"
             />
 
+            <p>Accepted file extensions include png, jpg, jpeg, and gif.</p>
+
+            
             <button className="formButtons">Add Location</button>
         </form>
-        {error && <span className="submitError">{error}</span>}
+        
         </div>
     )
 }
