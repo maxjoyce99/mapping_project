@@ -1,24 +1,44 @@
 import { useLocationsContext } from "../hooks/useLocationsContext";
+import { confirmAlert } from "react-confirm-alert";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const LocationDetails = ({location}) => {
     const { dispatch } = useLocationsContext();
 
+
+
     const handleDeleteClick = async () => {
-        const response = await fetch('/api/locations/' + location._id, {
-            method: 'DELETE'
-        });
+        confirmAlert({
+        title: 'Confirm to submit',
+        message: 'Are you sure to do this.',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: handleDelete
+          },
+          {
+            label: 'No',
+            onClick: () => console.log("Clicked No")
+          }
+        ]
+      });
+    }
 
-        const json = await response.json();
+    const handleDelete = async () => {
+            const response = await fetch('/api/locations/' + location._id, {
+                method: 'DELETE'
+            });
 
-        if(response.ok){
-            dispatch({type: 'DELETE_LOCATION', payload: json});
-        }
+            const json = await response.json();
+
+            if(response.ok){
+                dispatch({type: 'DELETE_LOCATION', payload: json});
+            }
     }
 
     const handleModifyClick = async () => {
         console.log("Modify button clicked");
     }
-
 
 
     return(
@@ -30,6 +50,7 @@ const LocationDetails = ({location}) => {
 
             <button className="deletelocation" onClick={handleDeleteClick}>Delete</button>
             <button className="modifylocation" onClick={handleModifyClick}>Modify</button>
+
         </ul>
     )
 }
