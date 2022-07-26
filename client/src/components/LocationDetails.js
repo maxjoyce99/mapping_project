@@ -41,8 +41,12 @@ const LocationDetails = ({location}) => {
 
             const picJson = await response;
 
+            if(picResponse.ok){
+                console.log("Deleting Folder");
+            }
+
             if(!picResponse.ok){
-                console.log(picJson);
+                console.log(picJson.err);
             }
     }
 

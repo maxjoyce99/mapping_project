@@ -133,7 +133,7 @@ const deletePictures = async(req,res) => {
     const { id } = req.params;
     console.log("Deleting Pictures from folder: " + id);
     
-    fs.rmdir(path.join("./uploads", id),
+    fs.rm(path.join("./uploads", id), {recursive: true}, 
     function(err) {
         if (err){
             console.log(err);
@@ -141,7 +141,7 @@ const deletePictures = async(req,res) => {
             console.log("Directory Deleted");
         }
     });
-    
+
     res.send("Deleting Pictures" + id);
 }
 
