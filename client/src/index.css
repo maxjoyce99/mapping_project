@@ -5,6 +5,7 @@ body {
   background: #f1f1f1;
   margin: 0;
   font-family: "Poppins";
+  max-width:100%;
 }
 
 #root{
@@ -14,6 +15,8 @@ body {
 .map{
   height:97vh;
   width:100vw;
+  max-width:100%;
+  max-height:97%;
 }
 
 header .navbar {
@@ -21,6 +24,7 @@ header .navbar {
   margin: 0 auto;
   padding: 10px 20px;
   height: 3vh;
+  max-height:100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,29 +69,32 @@ header a {
 
 
 .locations{
-  float: left;
   padding: 20px 20px;
-  float: top;
   border-spacing: 20px;
-  width: 80vw;
-  position: relative;
+  width: 70vw;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  row-gap: 0px;
+  float:none;
 }
 
 
 .location-details{
   color:"black";
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 4px;
   padding: 12px 20px;
-  display: inline-block;
   position: relative;
   width: 300px;
   height: 100px;
+  margin: 10;
 }
 
 .deletelocation{
   top: 2px;
-  right: 2px;
+  right: 3px;
   position: absolute;
   border: 1px solid black;
   background-color: white;
@@ -104,7 +111,7 @@ header a {
 
 .modifylocation{
   top: 2px;
-  left: 2px;
+  left: 3px;
   position: absolute;
   border: 1px solid black;
   background-color: white;
@@ -120,13 +127,17 @@ header a {
 }
 
 .create{
-  top: 20px;
-  right: 0px;
+  top:20px;
+  right: 20px;
+  padding: 20px 20px;
+  position: relative;
+  width: 20vw;
+  border: 2px solid black;
+  border-radius: 4px;
   float: right;
-  float: top;
-  padding: 20px;
-  position: absolute;
-  width: 20vw
+  width: 300px;
+  height: 400px;
+  margin: 10px;
 }
 
 .create input {
@@ -149,19 +160,23 @@ header a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
-
 }
 
-.picturesPage{
-  padding:20px
+.createForm span{
+  display: none;
+  color: red;
 }
 
+.createForm .nameInput:invalid[lastfocused = "nameInput"] ~ .nameErrorSpan {
+  display: block;
+}
+.createForm .latInput:invalid[lastfocused = "latInput"] ~ .latErrorSpan {
+  display: block;
+}
+.createForm .longInput:invalid[lastfocused = "longInput"] ~ .longErrorSpan {
+  display: block;
+}
 
-
-.gridContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  grid-template-rows: repeat(auto-fit, 260px);
-  grid-auto-flow: dense;
-  grid-gap: 0.3rem;
+.create span {
+  color: red;
 }

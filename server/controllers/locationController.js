@@ -35,11 +35,18 @@ const createLocation = async(req,res) => {
     try{
         const location =  await Location.create({ name, place});
         res.status(200).json(location);
+        console.log("Posting a new location");
     }catch(err) {
-        res.status(400).json({err});
-        console.log(err);
+        if(err.code == "11000"){
+            res.status(400).json({error: "This location name already exists, try a new one."});
+            console.log("Error: " + err);
+        }
+        else{
+            res.status(400).json({error: "Database Error"});
+            console.log("Error: " + err);
+        }
     }
-    console.log("Posting a new location");
+    
 }
 
 //delete a location

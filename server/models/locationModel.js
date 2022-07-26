@@ -11,7 +11,7 @@ const locationSchema = new Schema({
     place:{
         type: Array,
         required: true,
-        unique: true,
+        unique: false,
         items: {
             type: Number
            }
