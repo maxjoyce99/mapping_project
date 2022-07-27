@@ -28,7 +28,7 @@ const LocationMarker = (props) => {
         },
     }}
     >
-      <Tooltip direction="top" offset="-10">
+      <Tooltip direction="top">
         {props.name}
       </Tooltip>
         

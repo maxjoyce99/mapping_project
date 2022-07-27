@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
 
-const LocationForm = () => {
+const ModifyLocation = (props) => {
     const { dispatch } = useLocationsContext();
     const [name,setName] = useState('');
     const [error,setError] = useState(null);
@@ -12,46 +12,7 @@ const LocationForm = () => {
     const [submitted,setSubmitted] = useState(false);
     const[lastFocused,setLastFocused] = useState(null);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        //console.log(error);
-        setSubmitted(true);
-        setLastFocused(null);
-        var place = [];
-        //console.log("Lat:" + lat + " Long: " + long);
-        place = [lat,long];
-        //console.log(place);
-        
-        const location = { name, place};
-
-        const response = await fetch('/api/locations', {
-            method: 'POST',
-            body: JSON.stringify(location),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-        })
-
-        const json = await response.json()
-
-        if(!response.ok){
-            setError(json.error);
-        }
-        if(response.ok){
-            setName('');
-            place =[];
-            setLat(''); 
-            setLong(''); 
-            setError(null);
-            console.log("New Location Added", json);
-            dispatch({type: 'CREATE_LOCATION', payload: json});
-            fileSubmittedHandler(json._id);
-        }
-        
-    }
-
-    const fileSubmittedHandler = async (id) => {
+    /*const fileSubmittedHandler = async (id) => {
         console.log(files);
         const formData = new FormData();
         if(files){
@@ -79,19 +40,43 @@ const LocationForm = () => {
             console.log("New Picture(s) Added", json);
             
         }
-    }
+    }*/
     
 
     const handleFocus = (e) => {
         setLastFocused(e.target.className);
     }
 
+    const changeLocationName = async (e) => {
+        e.preventDefault();
+        if(name.length > 0){
+        console.log("Changing Location Name");
+
+        /*const response = await fetch('/api/locations', {
+            method: 'PATCH',
+            body: e.target.value,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        });*/
+
+
+        }
+        else{
+        setLastFocused("nameInput");
+        }
+    }
+
     return(
         <div className="create">
-        <form className="createForm" onSubmit={handleSubmit}>
-            <h3>Add a new location </h3>
- 
-            <label>Location Name: </label>
+        <form className="createForm">
+            <h3>Modify this location: </h3>
+            <p>Current Name: {props.name} </p>
+            <p>Current Coordinates: [{props.place[0]},{props.place[1]}] </p>
+        
+        <form>
+            <label>New Location Name:</label>
             <input
                 className="nameInput"
                 type="text"
@@ -103,10 +88,13 @@ const LocationForm = () => {
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
             />
+            <button className="formButtons" onClick={changeLocationName}>Change Location Name</button>
+
             <span className="nameErrorSpan">Name should be 1-30 characters with no special characters.</span>
             {error && <span className="submitError">{error}</span>}
-
-            <label>Location Latitude: </label>
+        </form>
+        <form>
+            <label>New Location Latitude: </label>
             <input
                 className="latInput"
                 type="number"
@@ -119,9 +107,11 @@ const LocationForm = () => {
                 min = "-90"
                 max = "90"
             />
+            <button className="formButtons">Change Location Latitude</button>
             <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation."</span>
-
-            <label>Location Longitude: </label>
+        </form>
+        <form>
+            <label>New Location Longitude: </label>
             <input
                 className="longInput"
                 type="number"
@@ -134,9 +124,17 @@ const LocationForm = () => {
                 min = "-180"
                 max = "180"
             />
+            <button className="formButtons">Change Location Longitude</button>
             <span className="longErrorSpan">Longitude must be a number between -180 and 180. Do not use E or W designation.</span>
+        </form>
+            
 
-            <label>Add pictures: </label>
+            
+        </form>
+
+        
+
+        <label>Add more pictures: </label>
             <input
             type="file"
             onChange={((e) => setFiles(e.target.files))}
@@ -145,15 +143,13 @@ const LocationForm = () => {
             className="formButtons"
             accept=".png, .jpg, .jpeg, .gif"
             />
+        <button className="formButtons">Add Pictures</button>
 
             <p>Accepted file extensions include png, jpg, jpeg, and gif.</p>
-
-            
-            <button className="formButtons">Add Location</button>
-        </form>
+        
         
         </div>
     )
 }
 
-export default LocationForm;
+export default ModifyLocation;

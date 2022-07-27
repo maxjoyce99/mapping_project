@@ -1,6 +1,7 @@
 import { useLocationsContext } from "../hooks/useLocationsContext";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; //alert css. can make custom one eventually
+import { useNavigate } from "react-router-dom";
 
 const LocationDetails = ({location}) => {
     const { dispatch } = useLocationsContext();
@@ -50,8 +51,13 @@ const LocationDetails = ({location}) => {
             }
     }
 
+    const navigate = useNavigate();
+
     const handleModifyClick = async () => {
         console.log("Modify button clicked");
+        
+        navigate("/modify", {state: {id: location._id, name: location.name, place: location.place}});
+
     }
 
 
@@ -59,7 +65,7 @@ const LocationDetails = ({location}) => {
         <ul className="location-details">
             <h4 key="title">{location.title}</h4>
             <p key="name"><strong> Name : </strong>{location.name}</p>
-            <p key="place"><strong> Place : </strong>{location.place}</p>
+            <p key="place"><strong> Place : </strong>[{location.place[0]},{location.place[1]}]</p>
             <p key="timeCreated"><strong> Time Created: </strong>{location.createdAt}</p>
 
             <button className="deletelocation" onClick={handleDeleteClick}>Delete</button>

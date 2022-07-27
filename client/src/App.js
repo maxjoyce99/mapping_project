@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Edit from './pages/Edit'
 import Map from './pages/Map'
 import Pictures from './pages/Pictures'
+import Modify from './pages/Modify'
 
 function App() {
 
@@ -33,6 +34,11 @@ function App() {
               <Route  
                 path="/pictures"
                 element={<Pictures />}
+              />
+
+              <Route  
+                path="/modify"
+                element={<Modify />}
               />
             </Routes>
         </div>

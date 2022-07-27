@@ -88,6 +88,8 @@ const updateLocation = async(req,res) => {
 
 }
 
+//create patch endpoint
+
 module.exports = {
     createLocation,
     getAllLocations,
