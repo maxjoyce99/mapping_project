@@ -35,7 +35,7 @@ const Modify = () => {
         return (
             <>
             <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place}/>
-                <div className="picturesPage">
+                <div className="modifyPage">
                     
                     <h3>Modify the location: {location.state.name}</h3> 
                     <div className="pictures">

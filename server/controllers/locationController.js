@@ -75,20 +75,31 @@ const updateLocation = async(req,res) => {
     if(!mongoose.Types.ObjectId.isValid(id)){
         return res.status(404).json({error: 'No such location to update'});
     }
-
-    const location = await Location.findOneAndUpdate({_id: id}, {
-        ...req.body
-    });
-
-    if(!location) { //if no location send error
-        return res.status(404).json({error: 'No such location to update'});
+    
+    try{
+        const location = await Location.findOneAndUpdate({_id: id}, {
+            ...req.body
+        });
+        res.status(200).json(location);
+        console.log("Updating a location");
+    }catch(err) {
+        if(err.code == "11000"){
+            res.status(400).json({error: "This location name already exists, try a new one."});
+            //console.log("Error: " + err);
+        }
+        else{
+            res.status(400).json({error: "Database Error"});
+            //console.log("Error: " + err);
+        }
     }
 
-    res.status(200).json(location);
+    /*if(!location) { //if no location send error
+        return res.status(404).json({error: 'No such location to update'});
+    }*/
+
+    
 
 }
-
-//create patch endpoint
 
 module.exports = {
     createLocation,

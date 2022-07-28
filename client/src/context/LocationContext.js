@@ -23,7 +23,7 @@ export const locationsReducer = (state, action) => {
 
 export const LocationsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(locationsReducer, {
-        locations: [{name: "start", place: [0,0]}]
+        locations: [{name: "default", place: [0,0]}]
     });
 
     return (

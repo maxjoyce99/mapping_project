@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
 
 const ModifyLocation = (props) => {
@@ -11,6 +11,9 @@ const ModifyLocation = (props) => {
     const [fileError, setFileError] = useState(null);
     const [submitted,setSubmitted] = useState(false);
     const[lastFocused,setLastFocused] = useState(null);
+    const [newName,setNewName] = useState('');
+    const [newLat, setNewLat] = useState('');
+    const [newLong, setNewLong] = useState('');
 
     /*const fileSubmittedHandler = async (id) => {
         console.log(files);
@@ -41,95 +44,199 @@ const ModifyLocation = (props) => {
             
         }
     }*/
+
+    useEffect(() => {
+        setName(props.name);
+        setLat(props.place[0]);
+        setLong(props.place[1]);
+    
+    },[]);
     
 
     const handleFocus = (e) => {
         setLastFocused(e.target.className);
     }
 
-    const changeLocationName = async (e) => {
+    const changeLocation = async (e) => {
         e.preventDefault();
-        if(name.length > 0){
-        console.log("Changing Location Name");
+        console.log(e.target.id);
+        console.log(newName);
+        console.log(newLat);
+        console.log(newLong);
 
-        /*const response = await fetch('/api/locations', {
-            method: 'PATCH',
-            body: e.target.value,
-            headers: {
-                'Content-Type': 'application/json'
+        if(newName.length > 0){
+            console.log("Changing Location Name to: " + newName);
+            
+            const newLocation = {
+                "name": newName,
             }
 
-        });*/
+            const fetchUrl = '/api/locations/' + props.id;
+            const response = await fetch(fetchUrl, {
+                method: 'PATCH',
+                body: JSON.stringify(newLocation),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                
 
+            });
 
+            const json = await response.json();
+
+            if(!response.ok){
+                setError(json.error);
+            }
+
+            if(response.ok){
+                setName(newName);
+                console.log("Changed Location Name to: " + newName);
+            }
         }
-        else{
-        setLastFocused("nameInput");
+
+        if(newLat.length > 0){
+            console.log("Changing Location Lat to: " + newLat);
+            var newLocation = {};
+            if(newLong.length > 0){
+                //setLong(newLong);
+                console.log(long);
+                newLocation = {
+                    "place" : [newLat,newLong]
+                }
+            }
+            else {
+                newLocation = {
+                    "place" : [newLat,long]
+                }
+            }
+    
+            const fetchUrl = '/api/locations/' + props.id;
+            const response = await fetch(fetchUrl, {
+                method: 'PATCH',
+                body: JSON.stringify(newLocation),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                
+    
+            });
+
+            const json = await response.json();
+
+            if(!response.ok){
+                setError(json.error);
+            }
+
+            if(response.ok){
+                setLat(newLat);
+                console.log("Changed Location Latitude to: " + newLat);
+            }
         }
+
+        
+
+        if(newLong.length > 0){
+            //console.log("Changed Location Longitude to: " + newLong);
+            var newLocation = {};
+            if(newLat.length > 0){
+                //setLat(newLat);
+                console.log(lat);
+                newLocation = {
+                    "place" : [newLat,newLong]
+                }
+            }
+            else {
+                newLocation = {
+                    "place" : [lat,newLong]
+                }
+            }
+
+            console.log("New Location: [" + lat + "," + newLong + "]");
+
+            
+    
+            const fetchUrl = '/api/locations/' + props.id;
+            const response = await fetch(fetchUrl, {
+                method: 'PATCH',
+                body: JSON.stringify(newLocation),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+                
+    
+            });
+
+            const json = await response.json();
+
+            if(!response.ok){
+                setError(json.error);
+            }
+
+            if(response.ok){
+                setLong(newLong);
+                console.log("Changed Location Longitude to: " + newLong);
+            }
+        }
+
+        
+
+        
     }
 
     return(
         <div className="create">
-        <form className="createForm">
+        <form className="createForm" onSubmit={changeLocation}>
             <h3>Modify this location: </h3>
-            <p>Current Name: {props.name} </p>
-            <p>Current Coordinates: [{props.place[0]},{props.place[1]}] </p>
+            <p>Current Name: {name} </p>
+            <p>Current Coordinates: [{lat},{long}] </p>
         
-        <form>
+       
             <label>New Location Name:</label>
             <input
                 className="nameInput"
                 type="text"
-                onChange={((e) => setName(e.target.value))}
-                value={name || ''}
+                onChange={((e) => setNewName(e.target.value))}
+                value={newName || ''}
                 placeholder="Name"
-                required = {true}
                 pattern = "^[A-Za-z0-9]{1,30}$"
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
             />
-            <button className="formButtons" onClick={changeLocationName}>Change Location Name</button>
 
             <span className="nameErrorSpan">Name should be 1-30 characters with no special characters.</span>
             {error && <span className="submitError">{error}</span>}
-        </form>
-        <form>
+        
             <label>New Location Latitude: </label>
             <input
                 className="latInput"
                 type="number"
-                onChange={((e) => setLat(e.target.value))}
-                value={lat|| ''}
+                onChange={((e) => setNewLat(e.target.value))}
+                value={newLat|| ''}
                 placeholder="Latitude"
-                required = {true}
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
                 min = "-90"
                 max = "90"
             />
-            <button className="formButtons">Change Location Latitude</button>
-            <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation."</span>
-        </form>
-        <form>
+
+            <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation.</span>
+        
             <label>New Location Longitude: </label>
             <input
                 className="longInput"
                 type="number"
-                onChange={((e) => setLong(e.target.value))}
-                value={long|| ''}
+                onChange={((e) => setNewLong(e.target.value))}
+                value={newLong|| ''}
                 placeholder="Longitude"
-                required = {true}
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
                 min = "-180"
                 max = "180"
             />
-            <button className="formButtons">Change Location Longitude</button>
+            
             <span className="longErrorSpan">Longitude must be a number between -180 and 180. Do not use E or W designation.</span>
-        </form>
-            
 
-            
+            <button className="formButtons">Change Location</button>
         </form>
 
         

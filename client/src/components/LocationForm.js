@@ -33,7 +33,7 @@ const LocationForm = () => {
 
         })
 
-        const json = await response.json()
+        const json = await response.json();
 
         if(!response.ok){
             setError(json.error);
@@ -119,7 +119,7 @@ const LocationForm = () => {
                 min = "-90"
                 max = "90"
             />
-            <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation."</span>
+            <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation.</span>
 
             <label>Location Longitude: </label>
             <input
