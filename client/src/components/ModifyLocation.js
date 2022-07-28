@@ -1,3 +1,4 @@
+import { PassThrough } from 'form-data';
 import { useEffect, useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
 
@@ -90,6 +91,7 @@ const ModifyLocation = (props) => {
 
             if(response.ok){
                 setName(newName);
+                props.updateName(newName);
                 console.log("Changed Location Name to: " + newName);
             }
         }

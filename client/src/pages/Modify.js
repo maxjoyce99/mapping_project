@@ -6,8 +6,13 @@ import ModifyLocation from '../components/ModifyLocation';
 const Modify = () => {
     const [imagePaths, setImagePaths] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [name,setName] = useState("");
 
     const location = useLocation();
+
+    const handleNameUpdate = (newName) => {
+        setName(newName);
+    }
 
     useEffect(() => {
         const fetchFolder = async () => {
@@ -29,15 +34,15 @@ const Modify = () => {
 
         fetchFolder();
         console.log(imagePaths);
+        setName(location.state.name);
     },[]);
 
     if(!loading){
         return (
-            <>
-            <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place}/>
-                <div className="modifyPage">
-                    
-                    <h3>Modify the location: {location.state.name}</h3> 
+            <div className="modifyPage">
+            <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place} updateName={handleNameUpdate}/>
+                
+                    <h3 >Modify the location: {name}</h3>  
                     <div className="pictures">
                     {imagePaths && imagePaths.map((path) => (
                             
@@ -47,7 +52,6 @@ const Modify = () => {
                     </div>
                 </div>
                 
-                </>
             )
         }
     else {
