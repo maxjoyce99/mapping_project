@@ -94,16 +94,23 @@ const postPicturesFolder = async(req,res) => {
             
     });
 
-    for(var i=0; i<req.files.length; i++){
-        fs.rename(path.join("./uploads", req.files[i].originalname),path.join("./uploads", id, Date.now() + req.files[i].originalname ),
+    var i=0;
+    for(i=0; i<req.files.length; i++){
+        var newImagePath = path.join("./uploads", id, Date.now() + req.files[i].originalname );
+        fs.rename(path.join("./uploads", req.files[i].originalname),newImagePath,
         function(err) {
-            if (err) throw err;
+            if (err){
+                console.log(err);
+            } else{
              console.log("File Renamed");
+            }
         });
     }
+    if(i==req.files.length){
     console.log("Posting Pictures to folder");
 
-    res.send(id);
+    res.status(200).json(id);
+    }
 }
 //multer storage variable
 const storage2 = multer.diskStorage({

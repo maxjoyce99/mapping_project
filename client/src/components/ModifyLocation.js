@@ -1,4 +1,4 @@
-import { PassThrough } from 'form-data';
+import { PassThrough, prototype } from 'form-data';
 import { useEffect, useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
 
@@ -16,7 +16,9 @@ const ModifyLocation = (props) => {
     const [newLat, setNewLat] = useState('');
     const [newLong, setNewLong] = useState('');
 
-    /*const fileSubmittedHandler = async (id) => {
+    const fileSubmittedHandler = async (e) => {
+        e.preventDefault();
+        
         console.log(files);
         const formData = new FormData();
         if(files){
@@ -26,31 +28,31 @@ const ModifyLocation = (props) => {
             console.log(formData);
         }
 
-        const routePath = '/api/pictures/' + id; //adds id to the route path
+        const routePath = '/api/pictures/' + props.id; //adds id to the route path
         const response = await fetch(routePath, {
             method: 'POST',
             body: formData,
         })
 
         const json = await response.json();
-
+        
         if(!response.ok){
             setFileError(json.err);
             setFiles(null);
             console.log(json.err);
         }
         if(response.ok){
+            props.updateImage();
             setFileError(null);
             console.log("New Picture(s) Added", json);
-            
         }
-    }*/
+        
+    }
 
     useEffect(() => {
         setName(props.name);
         setLat(props.place[0]);
         setLong(props.place[1]);
-    
     },[]);
     
 
@@ -186,6 +188,7 @@ const ModifyLocation = (props) => {
     }
 
     return(
+        <>
         <div className="create">
         <form className="createForm" onSubmit={changeLocation}>
             <h3>Modify this location: </h3>
@@ -242,6 +245,7 @@ const ModifyLocation = (props) => {
         </form>
 
         
+        <form className="addFiles" onSubmit={fileSubmittedHandler}>        
 
         <label>Add more pictures: </label>
             <input
@@ -257,7 +261,10 @@ const ModifyLocation = (props) => {
             <p>Accepted file extensions include png, jpg, jpeg, and gif.</p>
         
         
+        </form>
+
         </div>
+        </>
     )
 }
 

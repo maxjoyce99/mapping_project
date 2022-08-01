@@ -7,14 +7,22 @@ const Modify = () => {
     const [imagePaths, setImagePaths] = useState([]);
     const [loading,setLoading] = useState(true);
     const [name,setName] = useState("");
+    const [imageUpdated,setImageUpdated] = useState(false);
 
     const location = useLocation();
 
     const handleNameUpdate = (newName) => {
+        console.log("Updating Name");
         setName(newName);
     }
 
+    const handleImageUpdate = () => {
+        console.log("Updating Images");
+        setImageUpdated(!imageUpdated);
+    }
+
     useEffect(() => {
+        console.log("Loading Pictures");
         const fetchFolder = async () => {
             const fetchUrl = '/api/pictures/' + location.state.id;
             const response = await fetch(fetchUrl);
@@ -35,21 +43,26 @@ const Modify = () => {
         fetchFolder();
         console.log(imagePaths);
         setName(location.state.name);
-    },[]);
+    },[imageUpdated]);
+
+    const addPicTest = () => {
+        imagePaths.push = "http://localhost:3001/uploads/uploads/62e06252da9301516e7ba666/1658872402410capita_parkv1.jpg"
+    }
 
     if(!loading){
         return (
             <div className="modifyPage">
-            <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place} updateName={handleNameUpdate}/>
+            <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place} updateName={handleNameUpdate} updateImage={handleImageUpdate}/>
                 
                     <h3 >Modify the location: {name}</h3>  
-                    <div className="pictures">
+                    <div className="pictures" prop={imagePaths}>
                     {imagePaths && imagePaths.map((path) => (
                             
                             <img key={path} src={path} alt = "icons" width="100%"></img>
                         ))
                     }
                     </div>
+                    <button onClick={addPicTest}>Add PIC TEST</button>
                 </div>
                 
             )

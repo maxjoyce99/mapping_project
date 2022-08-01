@@ -135,7 +135,7 @@ header a {
   border: 2px solid black;
   border-radius: 4px;
   float: right;
-  height: 450px;
+  height: 550px;
   margin: 10px;
 }
 
@@ -192,4 +192,10 @@ header a {
 }
 .submitError {
   color:red;
+}
+
+.addFiles{
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 10px;
 }
