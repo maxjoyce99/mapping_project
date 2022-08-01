@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
-import ModifyLocation from '../components/ModifyLocation';
+import  ModifyLocation  from '../components/ModifyLocation';
+import { useImageContext } from '../hooks/useImageContext';
 
 
 const Modify = () => {
-    const [imagePaths, setImagePaths] = useState([]);
+    //const [imagePaths, setImagePaths] = useState([]);
+    const {imagePaths, dispatchImage} = useImageContext();
     const [loading,setLoading] = useState(true);
     const [name,setName] = useState("");
     const [imageUpdated,setImageUpdated] = useState(false);
@@ -42,6 +44,12 @@ const Modify = () => {
 
         })
 
+        if(response.ok){
+            var deletePath = "http://localhost:3001/uploads/" + location.state.id + "/" + path;
+            console.log(deletePath);
+            dispatchImage({type: 'DELETE_IMAGE', payload: deletePath});
+        }
+
 
     }
 
@@ -52,15 +60,19 @@ const Modify = () => {
             const response = await fetch(fetchUrl);
             const json = await response.json();
             //set array to nothing first in case of multiple loads
-            imagePaths.length=0;
+            var imagePathsTemp = [];
 
             for(var i in json){
                 var imagePathStart = "http://localhost:3001/uploads/" + location.state.id + "/"; //use path.join type thing???
-                imagePaths.push(imagePathStart + json[i]);
+                imagePathsTemp.push(imagePathStart + json[i]);
             }
+
+            console.log("what's good");
+            console.log(imagePathsTemp);
 
             if(response.ok){
             setLoading(false);
+            dispatchImage({type: 'SET_IMAGES', payload: imagePathsTemp});
             }
         }
 
