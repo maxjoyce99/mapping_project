@@ -21,6 +21,30 @@ const Modify = () => {
         setImageUpdated(!imageUpdated);
     }
 
+    const handleImageDelete = async(e) => {
+        e.preventDefault();
+        console.log("Deleting Image");
+        const pathSplit = e.target.title.split("/");
+        const path = pathSplit[pathSplit.length-1]
+        console.log(path);
+
+        const bodyObject = {
+            "id" : location.state.id,
+            "picturePath" : path
+        }
+
+        const response = await fetch('/api/pictures', {
+            method: 'DELETE',
+            body: JSON.stringify(bodyObject),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        })
+
+
+    }
+
     useEffect(() => {
         console.log("Loading Pictures");
         const fetchFolder = async () => {
@@ -45,10 +69,6 @@ const Modify = () => {
         setName(location.state.name);
     },[imageUpdated]);
 
-    const addPicTest = () => {
-        imagePaths.push = "http://localhost:3001/uploads/uploads/62e06252da9301516e7ba666/1658872402410capita_parkv1.jpg"
-    }
-
     if(!loading){
         return (
             <div className="modifyPage">
@@ -57,12 +77,13 @@ const Modify = () => {
                     <h3 >Modify the location: {name}</h3>  
                     <div className="pictures" prop={imagePaths}>
                     {imagePaths && imagePaths.map((path) => (
-                            
-                            <img key={path} src={path} alt = "icons" width="100%"></img>
+                        <div>
+                            <button key={path + "button"} className="deleteImage" title={path} onClick={handleImageDelete}>×</button>
+                            <img key={path} className="images" src={path} alt = "icons"></img>
+                        </div>
                         ))
                     }
                     </div>
-                    <button onClick={addPicTest}>Add PIC TEST</button>
                 </div>
                 
             )

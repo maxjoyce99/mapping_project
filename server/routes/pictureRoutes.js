@@ -7,6 +7,7 @@ const {
     getPictureFolder,
     postPicturesFolder,
     deletePictures,
+    deleteSinglePicture,
     upload2
 } = require("../controllers/pictureController");
 
@@ -20,6 +21,9 @@ router.get("/:id", getPictureFolder);
 router.post('/:id', upload2.array('images',30), postPicturesFolder);
 
 //delete pictures from folder
-router.delete('/:id', deletePictures)
+router.delete('/:id', deletePictures);
+
+//delete a single picture
+router.delete('/', deleteSinglePicture);
 
 module.exports = router;

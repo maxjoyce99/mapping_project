@@ -89,17 +89,34 @@ const upload2 = multer({
 const deletePictures = async(req,res) => {
     const { id } = req.params;
     console.log("Deleting Pictures from folder: " + id);
-    
+
     fs.rm(path.join("./uploads", id), {recursive: true}, 
-    function(err) {
-        if (err){
-            console.log(err);
-        } else{
-            console.log("Directory Deleted");
-        }
+        function(err) {
+            if (err){
+                console.log(err);
+            } else{
+                console.log("Directory Deleted");
+            }
     });
 
     res.send("Deleting Pictures" + id);
+
+}
+
+const deleteSinglePicture = async(req,res) => {
+    const { id, picturePath } = req.body;
+    console.log("Deleting Picture: " + picturePath);
+
+    fs.rm(path.join("./uploads", id, picturePath), {recursive: true}, 
+        function(err) {
+            if (err){
+                console.log(err);
+            } else{
+                console.log("Directory Deleted");
+            }
+    });
+
+    res.send("Deleting Picture: " + picturePath);
 }
 
 module.exports = { 
@@ -107,6 +124,7 @@ module.exports = {
     getPictureFolder,
     postPicturesFolder,
     deletePictures,
+    deleteSinglePicture,
     upload2
 }
 

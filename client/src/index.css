@@ -159,6 +159,7 @@ header a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
+  position: relative;
 }
 
 .nameErrorSpan{
@@ -198,4 +199,22 @@ header a {
   border: 2px solid black;
   border-radius: 4px;
   padding: 10px;
+}
+
+.images{
+  width:100%
+}
+
+.deleteImage{
+  position: absolute;
+    z-index: 100;
+    background-color: #FFF;
+     
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.deleteImage:hover {
+  background: #e7e7e7;
 }
