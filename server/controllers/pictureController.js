@@ -4,10 +4,10 @@ const app = express();
 const multer = require("multer");
 const fs = require('fs');
 
+//get all pictures
 const getPictures = async(req,res) => {
     var imagePaths = [];
     console.log("Getting pictures");
-    var imagePath = path.join(__dirname , "../uploads/crystal1.jpg");
     //res.sendFile(imagePath);
 
     var folderPath = path.join(__dirname , "../uploads");
@@ -30,7 +30,6 @@ const getPictureFolder = async(req,res) => {
     const { id } = req.params; //gets id from route paramaters
     var imagePaths = [];
     console.log("Getting pictures");
-    var imagePath = path.join(__dirname , "../uploads/crystal1.jpg");
     //res.sendFile(imagePath);
 
     var folderPathTemp = path.join(__dirname , "../uploads/");
@@ -53,73 +52,24 @@ const getPictureFolder = async(req,res) => {
     }
 }
 
-//Posting Pictures
-
-//multer storage variable to store images
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './uploads');
-    },
-  
-    filename: function(req, file, cb) {
-        cb(null, Date.now() + file.originalname);
-    }
-});
-
-const upload = multer({
-    storage: storage
-});
-
-//post pictures function
-const postPictures = async(req,res) => {
-    console.log("Posting Pictures");
-    console.log(req.files);
-    res.send('File upload success');
-    
-}
-
 //post pictures folder function and multer object
 const postPicturesFolder = async(req,res) => {
     const { id } = req.params;
-    console.log(id);
+    //console.log(id);
     console.log(req.files);
-
-    fs.mkdir(path.join("./uploads", id),
-    function(err) {
-        if (err){
-            console.log(err);
-        } else{
-            console.log("Directory Made");
-        }
-            
-    });
-
-    var i=0;
-    for(i=0; i<req.files.length; i++){
-        var newImagePath = path.join("./uploads", id, Date.now() + req.files[i].originalname );
-        fs.rename(path.join("./uploads", req.files[i].originalname),newImagePath,
-        function(err) {
-            if (err){
-                console.log(err);
-            } else{
-             console.log("File Renamed");
-            }
-        });
-    }
-    if(i==req.files.length){
-    console.log("Posting Pictures to folder");
-
     res.status(200).json(id);
-    }
 }
 //multer storage variable
 const storage2 = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './uploads');
+        const { id } = req.params;
+        const path = `./uploads/${id}`;
+        fs.mkdirSync(path, { recursive: true });
+        return cb(null, path)
     },
   
     filename: function(req, file, cb) {
-        cb(null, file.originalname);
+        cb(null,  + Date.now() + file.originalname);
     }
 });
 
@@ -154,11 +104,9 @@ const deletePictures = async(req,res) => {
 
 module.exports = { 
     getPictures,
-    postPictures,
     getPictureFolder,
     postPicturesFolder,
     deletePictures,
-    upload,
     upload2
 }
 
