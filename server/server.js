@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require("dotenv").config();
 const locationRoutes = require("./routes/locationRoutes");
 const pictureRoutes = require("./routes/pictureRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const PORT = process.env.PORT || 3001;
 
@@ -25,9 +26,13 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/locations", locationRoutes);
 app.use("/api/pictures", pictureRoutes);
+app.use("/", userRoutes);
 
 //static files middleware
 app.use('/uploads', express.static('uploads'));
+
+//login route
+
 
 //Connect to database(waits to connect before starting server, should probably change this)
 console.log(process.env.MONGO_URI);

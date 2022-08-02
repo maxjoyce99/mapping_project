@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { useState } from 'react';
 
 //pages and componenets
 import Home from './pages/Home'
@@ -7,9 +8,10 @@ import Edit from './pages/Edit'
 import Map from './pages/Map'
 import Pictures from './pages/Pictures'
 import Modify from './pages/Modify'
+import Login from './components/LoginForm';
 
 function App() {
-
+  
   return (
     <div className="App">
       <Router>
