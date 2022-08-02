@@ -5,7 +5,6 @@ import { useImageContext } from '../hooks/useImageContext';
 
 
 const Modify = () => {
-    //const [imagePaths, setImagePaths] = useState([]);
     const {imagePaths, dispatchImage} = useImageContext();
     const [loading,setLoading] = useState(true);
     const [name,setName] = useState("");
@@ -46,7 +45,6 @@ const Modify = () => {
 
         if(response.ok){
             var deletePath = "http://localhost:3001/uploads/" + location.state.id + "/" + path;
-            console.log(deletePath);
             dispatchImage({type: 'DELETE_IMAGE', payload: deletePath});
         }
 
@@ -66,9 +64,6 @@ const Modify = () => {
                 var imagePathStart = "http://localhost:3001/uploads/" + location.state.id + "/"; //use path.join type thing???
                 imagePathsTemp.push(imagePathStart + json[i]);
             }
-
-            console.log("what's good");
-            console.log(imagePathsTemp);
 
             if(response.ok){
             setLoading(false);

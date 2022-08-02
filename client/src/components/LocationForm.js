@@ -146,7 +146,7 @@ const LocationForm = () => {
             accept=".png, .jpg, .jpeg, .gif"
             />
 
-            <p>Accepted file extensions include png, jpg, jpeg, and gif.</p>
+            <p>Accepted file extensions include png, jpg, jpeg, and gif. <br></br> You can add and remove pictures when needed and don't have to upload any pictures for a location.</p>
 
             
             <button className="formButtons">Add Location</button>

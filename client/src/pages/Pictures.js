@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
+import { useImageContext } from '../hooks/useImageContext';
 
 
 const Pictures = () => {
-    const [imagePaths, setImagePaths] = useState([]);
+    const {imagePaths, dispatchImage} = useImageContext();
     const [loading,setLoading] = useState(true);
 
     const location = useLocation();
@@ -14,15 +15,16 @@ const Pictures = () => {
             const response = await fetch(fetchUrl);
             const json = await response.json();
             //set array to nothing first in case of multiple loads
-            imagePaths.length=0;
+            var imagePathsTemp = [];
 
             for(var i in json){
                 var imagePathStart = "http://localhost:3001/uploads/" + location.state.id + "/"; //use path.join type thing???
-                imagePaths.push(imagePathStart + json[i]);
+                imagePathsTemp.push(imagePathStart + json[i]);
             }
 
             if(response.ok){
             setLoading(false);
+            dispatchImage({type: 'SET_IMAGES', payload: imagePathsTemp});
             }
         }
 
