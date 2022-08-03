@@ -7,7 +7,7 @@ const Home = () => {
 
     if(!token) {
         return <Login setToken={setToken} />
-      }
+    }
     
 
     return (
