@@ -27,13 +27,13 @@ const getPictures = async(req,res) => {
 
 //get picture from folder
 const getPictureFolder = async(req,res) => {
-    const { id } = req.params; //gets id from route paramaters
+    const { userId, nodeId } = req.params; //gets id from route paramaters
     var imagePaths = [];
     console.log("Getting pictures");
     //res.sendFile(imagePath);
 
     var folderPathTemp = path.join(__dirname , "../uploads/");
-    var folderPath = path.join(folderPathTemp, id);
+    var folderPath = path.join(folderPathTemp, userId, nodeId);
 
     if(fs.existsSync(folderPath)){ //check if directory exists first
         //passing directoryPath and callback function
@@ -54,16 +54,17 @@ const getPictureFolder = async(req,res) => {
 
 //post pictures folder function and multer object
 const postPicturesFolder = async(req,res) => {
-    const { id } = req.params;
+    const { userId, nodeId } = req.params;
+    console.log(userId);
     //console.log(id);
     console.log(req.files);
-    res.status(200).json(id);
+    res.status(200).json(nodeId);
 }
 //multer storage variable
 const storage2 = multer.diskStorage({
     destination: function(req, file, cb) {
-        const { id } = req.params;
-        const path = `./uploads/${id}`;
+        const { userId, nodeId } = req.params;
+        const path = `./uploads/${userId}/${nodeId}`;
         fs.mkdirSync(path, { recursive: true });
         return cb(null, path)
     },
@@ -87,10 +88,10 @@ const upload2 = multer({
 
 //Delete pictures
 const deletePictures = async(req,res) => {
-    const { id } = req.params;
-    console.log("Deleting Pictures from folder: " + id);
+    const { userId, nodeId } = req.params;
+    console.log("Deleting Pictures from folder: " + userId + "/" + nodeId);
 
-    fs.rm(path.join("./uploads", id), {recursive: true}, 
+    fs.rm(path.join("./uploads", userId, nodeId), {recursive: true}, 
         function(err) {
             if (err){
                 console.log(err);
@@ -99,15 +100,15 @@ const deletePictures = async(req,res) => {
             }
     });
 
-    res.send("Deleting Pictures" + id);
+    res.send("Deleting Pictures" + userId + "/" + nodeId);
 
 }
 
 const deleteSinglePicture = async(req,res) => {
-    const { id, picturePath } = req.body;
+    const { userId, nodeId , picturePath } = req.body;
     console.log("Deleting Picture: " + picturePath);
 
-    fs.rm(path.join("./uploads", id, picturePath), {recursive: true}, 
+    fs.rm(path.join("./uploads", userId, nodeId, picturePath), {recursive: true}, 
         function(err) {
             if (err){
                 console.log(err);

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
+import useToken from "../hooks/useToken";
 
 const LocationForm = () => {
     const { dispatch } = useLocationsContext();
@@ -11,6 +12,7 @@ const LocationForm = () => {
     const [fileError, setFileError] = useState(null);
     const [submitted,setSubmitted] = useState(false);
     const[lastFocused,setLastFocused] = useState(null);
+    const {token, setToken } = useToken();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,6 +55,7 @@ const LocationForm = () => {
 
     const fileSubmittedHandler = async (id) => {
         console.log(files);
+        console.log(token._id);
         const formData = new FormData();
         if(files){
             for (let i = 0; i < files.length; i++) {
@@ -61,7 +64,7 @@ const LocationForm = () => {
             console.log(formData);
         }
 
-        const routePath = '/api/pictures/' + id; //adds id to the route path
+        const routePath = '/api/pictures/' + token._id + "/" + id; //adds id to the route path
         const response = await fetch(routePath, {
             method: 'POST',
             body: formData,

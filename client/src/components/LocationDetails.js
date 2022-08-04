@@ -2,9 +2,11 @@ import { useLocationsContext } from "../hooks/useLocationsContext";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; //alert css. can make custom one eventually
 import { useNavigate } from "react-router-dom";
+import useToken from "../hooks/useToken";
 
 const LocationDetails = ({location}) => {
     const { dispatch } = useLocationsContext();
+    const {token, setToken} = useToken();
 
 
 
@@ -36,7 +38,7 @@ const LocationDetails = ({location}) => {
                 dispatch({type: 'DELETE_LOCATION', payload: json});
             }
 
-            const picResponse = await fetch('/api/pictures/' + location._id, {
+            const picResponse = await fetch('/api/pictures/' + token._id + "/" + location._id, {
                 method: 'DELETE'
             });
 

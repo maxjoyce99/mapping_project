@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
 import { useImageContext } from '../hooks/useImageContext';
+import useToken from "../hooks/useToken";
 
 
 const Pictures = () => {
     const {imagePaths, dispatchImage} = useImageContext();
     const [loading,setLoading] = useState(true);
+    const {token, setToken } = useToken();
 
     const location = useLocation();
 
     useEffect(() => {
         const fetchFolder = async () => {
-            const fetchUrl = '/api/pictures/' + location.state.id;
+            const fetchUrl = '/api/pictures/' + token._id  + "/" + location.state.id;
             const response = await fetch(fetchUrl);
             const json = await response.json();
             //set array to nothing first in case of multiple loads
             var imagePathsTemp = [];
 
             for(var i in json){
-                var imagePathStart = "http://localhost:3001/uploads/" + location.state.id + "/"; //use path.join type thing???
+                var imagePathStart = "http://localhost:3001/uploads/" + token._id  + "/" + location.state.id + "/"; //use path.join type thing???
                 imagePathsTemp.push(imagePathStart + json[i]);
             }
 

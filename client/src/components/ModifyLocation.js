@@ -1,6 +1,7 @@
 import { PassThrough, prototype } from 'form-data';
 import { useEffect, useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
+import useToken from "../hooks/useToken";
 
 const ModifyLocation = (props) => {
     const { dispatch } = useLocationsContext();
@@ -15,11 +16,13 @@ const ModifyLocation = (props) => {
     const [newName,setNewName] = useState('');
     const [newLat, setNewLat] = useState('');
     const [newLong, setNewLong] = useState('');
+    const {token, setToken } = useToken();
 
     const fileSubmittedHandler = async (e) => {
         e.preventDefault();
         
         console.log(files);
+        console.log(token._id);
         const formData = new FormData();
         if(files){
             for (let i = 0; i < files.length; i++) {
@@ -28,7 +31,7 @@ const ModifyLocation = (props) => {
             console.log(formData);
         }
 
-        const routePath = '/api/pictures/' + props.id; //adds id to the route path
+        const routePath = '/api/pictures/' + token._id + "/" + props.id; //adds id to the route path
         const response = await fetch(routePath, {
             method: 'POST',
             body: formData,

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {useLocation} from 'react-router-dom';
 import  ModifyLocation  from '../components/ModifyLocation';
 import { useImageContext } from '../hooks/useImageContext';
+import useToken from "../hooks/useToken";
 
 
 const Modify = () => {
@@ -9,6 +10,7 @@ const Modify = () => {
     const [loading,setLoading] = useState(true);
     const [name,setName] = useState("");
     const [imageUpdated,setImageUpdated] = useState(false);
+    const {token, setToken } = useToken();
 
     const location = useLocation();
 
@@ -30,7 +32,8 @@ const Modify = () => {
         console.log(path);
 
         const bodyObject = {
-            "id" : location.state.id,
+            "userId" : token._id,
+            "nodeId" : location.state.id,
             "picturePath" : path
         }
 
@@ -44,7 +47,7 @@ const Modify = () => {
         })
 
         if(response.ok){
-            var deletePath = "http://localhost:3001/uploads/" + location.state.id + "/" + path;
+            var deletePath = "http://localhost:3001/uploads/" + token._id  + "/" + location.state.id + "/" + path;
             dispatchImage({type: 'DELETE_IMAGE', payload: deletePath});
         }
 
@@ -54,14 +57,14 @@ const Modify = () => {
     useEffect(() => {
         console.log("Loading Pictures");
         const fetchFolder = async () => {
-            const fetchUrl = '/api/pictures/' + location.state.id;
+            const fetchUrl = '/api/pictures/' + token._id  + "/" + location.state.id;
             const response = await fetch(fetchUrl);
             const json = await response.json();
             //set array to nothing first in case of multiple loads
             var imagePathsTemp = [];
 
             for(var i in json){
-                var imagePathStart = "http://localhost:3001/uploads/" + location.state.id + "/"; //use path.join type thing???
+                var imagePathStart = "http://localhost:3001/uploads/" + token._id  + "/" + location.state.id + "/"; //use path.join type thing???
                 imagePathsTemp.push(imagePathStart + json[i]);
             }
 
