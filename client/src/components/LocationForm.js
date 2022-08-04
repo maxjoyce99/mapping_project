@@ -23,8 +23,10 @@ const LocationForm = () => {
         //console.log("Lat:" + lat + " Long: " + long);
         place = [lat,long];
         //console.log(place);
+
+        const user = token._id;
         
-        const location = { name, place};
+        const location = { user, name, place};
 
         const response = await fetch('/api/locations', {
             method: 'POST',

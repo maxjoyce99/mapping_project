@@ -11,7 +11,7 @@ const {
 const multer = require("multer");
 
 //get all locations
-router.get("/", getAllLocations);
+router.get("/getall/:userId", getAllLocations);
 
 //get one location
 router.get("/:id", getLocation);

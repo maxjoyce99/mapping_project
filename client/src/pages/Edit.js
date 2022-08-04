@@ -13,7 +13,7 @@ const Edit = () => {
 
     useEffect(() => {
         const fetchLocations = async () => {
-            const response = await fetch('/api/locations');
+            const response = await fetch('/api/locations/getall/' + token._id );
             const json = await response.json();
 
 
@@ -25,7 +25,9 @@ const Edit = () => {
             }
         }
 
+        if(token){
         fetchLocations();
+        }
 
 
     },[]);

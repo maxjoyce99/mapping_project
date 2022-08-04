@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const locationSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: false,
+        unique: false
     },
     place:{
         type: Array,
@@ -15,6 +15,11 @@ const locationSchema = new Schema({
         items: {
             type: Number
            }
+    },
+    user: {
+        type: String,
+        required: true,
+        unique: false
     }
     
 }, {timestamps:true});

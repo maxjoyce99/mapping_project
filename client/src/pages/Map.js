@@ -6,15 +6,17 @@ import { Tooltip } from 'react-leaflet';
 //components
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import LocationMarker from  '../components/LocationMarker';
+import useToken from '../hooks/useToken';
  
 const Map = () => {
   const {locations, dispatch} = useLocationsContext();
   const [ loading, setLoading ] = useState(true);
   var centerPosition = [ 38.500000,  -98.000000];
+  const {token, setToken} = useToken();
 
     useEffect(() => {
         const fetchLocations = async () => {
-            const response = await fetch('/api/locations');
+            const response = await fetch('/api/locations/getall/' + token._id);
             const json = await response.json();
 
 

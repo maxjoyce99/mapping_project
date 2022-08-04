@@ -4,7 +4,8 @@ const multer = require("multer");
 
 //get all locations
 const getAllLocations = async(req,res) => {
-    const locations = await Location.find({}).sort({createdAt: -1});
+    const { userId } = req.params;
+    const locations = await Location.find({'user':userId}).sort({createdAt: -1});
 
     res.status(200).json(locations);
 }
@@ -29,11 +30,11 @@ const getLocation = async(req,res) => {
 
 //Post a new location
 const createLocation = async(req,res) => {
-    const { name, place } = req.body;
+    const { name, place, user } = req.body;
 
     //Add a document to database
     try{
-        const location =  await Location.create({ name, place});
+        const location =  await Location.create({ name, place, user});
         res.status(200).json(location);
         console.log("Posting a new location");
     }catch(err) {
