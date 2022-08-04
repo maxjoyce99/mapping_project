@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom'
 
+const handleLogout = (e) => {
+    sessionStorage.clear();
+    window.location.reload();
+}
+
 const Navbar = () => {
     return (
         <header>
@@ -7,6 +12,11 @@ const Navbar = () => {
 
                 <Link to="/">
                     <h1>Home</h1>
+
+                </Link>
+
+                <Link to="/maplist">
+                    <h1>MapList</h1>
 
                 </Link>
 
@@ -20,6 +30,7 @@ const Navbar = () => {
 
                 </Link>
             </div>
+            <button onClick={handleLogout}>Logout</button>
 
         </header>
     )

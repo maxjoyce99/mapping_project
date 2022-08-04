@@ -9,6 +9,7 @@ import Map from './pages/Map'
 import Pictures from './pages/Pictures'
 import Modify from './pages/Modify'
 import Login from './components/LoginForm';
+import MapList from './pages/MapList';
 
 function App() {
   
@@ -41,6 +42,11 @@ function App() {
               <Route  
                 path="/modify"
                 element={<Modify />}
+              />
+
+              <Route  
+                path="/maplist"
+                element={<MapList />}
               />
             </Routes>
         </div>
