@@ -36,7 +36,7 @@ const Home = () => {
             <div className="home">
 
                   <p>Max's Homepage</p> 
-                  <p> Logged in as user</p>  
+                  <p> Logged in as user {token.username} </p>  
             </div>
         )
     }

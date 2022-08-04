@@ -1,5 +1,6 @@
 import { useEffect} from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
+import useToken from "../hooks/useToken";
 
 //components
 import LocationDetails from '../components/LocationDetails';
@@ -7,6 +8,7 @@ import LocationForm from '../components/LocationForm';
 
 
 const Edit = () => {
+    const {token, setToken } = useToken();
     const {locations, dispatch} = useLocationsContext();
 
     useEffect(() => {
@@ -29,7 +31,7 @@ const Edit = () => {
     },[]);
 
     //console.log(locations);
-
+    if(token){
     return (
             <div className="edit">
                 <div className="locations">
@@ -42,6 +44,12 @@ const Edit = () => {
                 
             </div>
         )
+    }
+    else {
+        return(
+            <p> You must be logged in to edit a Map.</p>
+        )
+    }
 
 }
 
