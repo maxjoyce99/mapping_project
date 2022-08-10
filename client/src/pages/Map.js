@@ -2,21 +2,31 @@
 import { useLocationsContext } from '../hooks/useLocationsContext';
 import { useState, useEffect } from 'react';
 import { Tooltip } from 'react-leaflet';
+import {useLocation} from 'react-router-dom';
 
 //components
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import LocationMarker from  '../components/LocationMarker';
 import useToken from '../hooks/useToken';
+
  
 const Map = () => {
   const {locations, dispatch} = useLocationsContext();
   const [ loading, setLoading ] = useState(true);
-  var centerPosition = [ 38.500000,  -98.000000];
+  var centerPosition = [ 38.500000, -98.000000];
   const {token, setToken} = useToken();
 
+  const location = useLocation();
+  
+  console.log(location.state.userId);
+
+  
+
     useEffect(() => {
+
+
         const fetchLocations = async () => {
-            const response = await fetch('/api/locations/getall/' + token._id);
+            const response = await fetch('/api/locations/getall/' + location.state.userId);
             const json = await response.json();
 
 

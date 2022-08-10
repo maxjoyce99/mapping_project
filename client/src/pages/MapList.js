@@ -28,7 +28,7 @@ const MapList = () => {
         <p>Map List Page</p>
         
         {userList &&userList.map((user)=> (
-            <UserDetails username={user.username}></UserDetails>
+            <UserDetails username={user.username} id={user._id}></UserDetails>
         ))}
         </div>
     )

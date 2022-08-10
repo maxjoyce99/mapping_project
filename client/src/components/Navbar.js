@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import useToken from '../hooks/useToken';
 
 const handleLogout = (e) => {
     sessionStorage.clear();
@@ -6,6 +7,7 @@ const handleLogout = (e) => {
 }
 
 const Navbar = () => {
+    const {token, setToken} = useToken();
     return (
         <header>
             <div className="navbar">
@@ -20,7 +22,7 @@ const Navbar = () => {
 
                 </Link>
 
-                <Link to="/map">
+                <Link to="/map" state={{userId: token._id}}>
                     <h1>Map</h1>
 
                 </Link>
