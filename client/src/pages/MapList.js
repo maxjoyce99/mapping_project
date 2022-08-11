@@ -37,7 +37,7 @@ const MapList = () => {
         
         {userList && userList.map((user)=> (
 
-            <UserDetails username={user.username} id={user._id}></UserDetails>
+            <UserDetails key={user.username} username={user.username} id={user._id}></UserDetails>
             
         ))}
         </div>
