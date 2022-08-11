@@ -13,7 +13,7 @@ import useToken from '../hooks/useToken';
 const Map = () => {
   const {locations, dispatch} = useLocationsContext();
   const [ loading, setLoading ] = useState(true);
-  var centerPosition = [ 38.500000, -98.000000];
+  var centerPosition = [ 0, -0];
   const {token, setToken} = useToken();
 
   const location = useLocation();

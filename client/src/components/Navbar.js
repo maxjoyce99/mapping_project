@@ -18,12 +18,12 @@ const Navbar = () => {
                 </Link>
 
                 <Link to="/maplist">
-                    <h1>MapList</h1>
+                    <h1>Map List</h1>
 
                 </Link>
 
                 <Link to="/map" state={{userId: token._id}}>
-                    <h1>Map</h1>
+                    <h1>My Map</h1>
 
                 </Link>
 
