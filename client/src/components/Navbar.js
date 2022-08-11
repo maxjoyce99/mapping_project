@@ -22,7 +22,7 @@ const Navbar = () => {
 
                 </Link>
 
-                <Link to="/map" state={{userId: token._id}}>
+                <Link to="/map" state={{userId: token?._id}}>
                     <h1>My Map</h1>
 
                 </Link>

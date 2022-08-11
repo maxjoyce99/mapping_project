@@ -15,7 +15,7 @@ const MapList = () => {
             if(response.ok) {
                 
                 for( var i = 0; i< json.length; i++){
-                    if(json[i]._id===token._id){
+                    if(json[i]._id===token?._id){
                         json.splice(i,1);
                     }
                 }
