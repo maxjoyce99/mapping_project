@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 
@@ -8,6 +9,15 @@ const handleLogout = (e) => {
 
 const Navbar = () => {
     const {token, setToken} = useToken();
+
+
+    useEffect(() => {
+
+    console.log("Token: " + token?._id);
+    },[token]);
+
+
+
     return (
         <header>
             <div className="navbar">

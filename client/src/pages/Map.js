@@ -24,9 +24,15 @@ const Map = () => {
 
     useEffect(() => {
 
-
         const fetchLocations = async () => {
-            const response = await fetch('/api/locations/getall/' + location.state.userId);
+            var mapId = '';
+            if(!location.state.userId){
+                mapId = token._id;
+            }
+            else{
+                mapId = location.state.userId
+            }
+            const response = await fetch('/api/locations/getall/' + mapId);
             const json = await response.json();
 
 
