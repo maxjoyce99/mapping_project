@@ -25,7 +25,7 @@ const Home = () => {
         return (
             <>
         <Login setToken={setToken} />
-        <button onClick={handleNewUser}> Make a New Account</button>
+        <button className="formButtons" onClick={handleNewUser}> Make a New Account</button>
         </>
         )
         }

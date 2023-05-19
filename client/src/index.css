@@ -12,6 +12,9 @@ body {
   height: 100%;
 }
 
+.button {
+  height: 10px;
+}
 .map{
   height:97vh;
   width:100vw;
@@ -150,8 +153,35 @@ header a {
   float: top;
 }
 
+.login-wrapper input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login-wrapper {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
 .formButtons{
   cursor: pointer;
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+  border-radius: 6px;
+  font-size:16px;
+  cursor: pointer;
+  margin: 4px 2px;
+}
+
+.formButtons:hover {
+  background-color: #555555;
+  color: white;
 }
 
 .pictures{

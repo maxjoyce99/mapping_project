@@ -10,7 +10,7 @@ const UserDetails = (props) => {
     return (
     <div>
         <p>{props.username}</p>
-        <button  onClick={handleMapClick} >See their map!</button>
+        <button  className ="formButtons" onClick={handleMapClick} >See their map!</button>
     </div>
     
 )
