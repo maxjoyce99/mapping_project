@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 //Login existing user
 const loginUser = async(req, res) => {
@@ -12,17 +13,31 @@ const loginUser = async(req, res) => {
   }
 
   try {
-    const user = await User.findOne({ username, password })
+    const user = await User.findOne({username})
+    console.log(user);
     if (!user) {
       res.status(401).json({
-        message: "Login not successful",
+        message: "Login not successful: user not found",
         error: "User not found",
       })
     } else {
+      const hash = user.password;
+      const passMatch = await bcrypt.compare(password, hash);
+      console.log(passMatch);
+
+      if(passMatch){
       res.status(200).json({
         message: "Login successful",
         token: user,
       })
+      }
+      else{
+        res.status(401).json({
+          message: "Login not successful: incorrect password",
+          error: "Incorrect password",
+        })
+      }
+
     }
   } catch (error) {
     res.status(400).json({
@@ -33,31 +48,35 @@ const loginUser = async(req, res) => {
 }
 
 const registerUser = async (req, res, next) => {
-    const { username, password, email } = req.body
+    var { username, password, email } = req.body
+    const hash = await bcrypt.hash(password, 10);
+
+    console.log("password")
+
     if (password.length < 6) {
       return res.status(400).json({ message: "Password less than 6 characters" })
     }
     try {
-    const user = await User.create({username,password,email});
-
-    res.status(200).json({
-      message: "User successfully created",
-      user,
-    })
-
-    console.log("Adding a new user");
+        
+        console.log("Hash: " + hash);
+        
+        const user = await User.create({username,password:hash,email});
+        res.status(200).json({
+          message: "User successfully created",
+          user,
+        })
+   
+        console.log("Adding a new user");
 
     } catch (err) {
       if(err.code == "11000"){
-        res.status(401).json({error: "This username or email already exists, try a new one."});
+        res.status(400).json({error: "This username or email already exists, try a new one."});
         console.log("Error: " + err);
       }
-      else {
-        res.status(401).json({
-          message: "User not successfully created",
-          error: err.code,
-        })
-      }
+      else{
+        res.status(400).json({error: "Database Error"});
+        console.log("Error: " + err);
+    }
     }
 }
 
