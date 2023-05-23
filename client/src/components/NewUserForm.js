@@ -98,10 +98,10 @@ const NewUser = ({ setToken }) => {
           </label>
 
           {error && <span className="submitError">{error}</span>}
-          {userCreated && <span className='userCreated'>User created successfully!</span>}
+          {userCreated && <span className='userCreated'>User created successfully! Go back to the login page and login!</span>}
           
           <div>
-            <button type="submit"> Register </button>
+            <button className='formButtons' type="submit"> Register </button>
           </div>
         </form>
       </div>

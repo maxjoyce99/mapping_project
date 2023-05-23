@@ -17,7 +17,7 @@ const Home = () => {
             return (
                 <>
             <NewUser></NewUser>
-            <button onClick={handleNewUser}> Go Back to Login Page</button>
+            <button className="formButtons" onClick={handleNewUser}> Go Back to Login Page</button>
             </>
             )
         }

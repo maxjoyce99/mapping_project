@@ -169,6 +169,21 @@ header a {
   left: 40%;
 }
 
+.registerForm {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+}
+
+.registerForm input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 .formButtons{
   cursor: pointer;
   background-color: white;
