@@ -51,15 +51,10 @@ const registerUser = async (req, res, next) => {
     var { username, password, email } = req.body
     const hash = await bcrypt.hash(password, 10);
 
-    console.log("password")
-
     if (password.length < 6) {
       return res.status(400).json({ message: "Password less than 6 characters" })
     }
     try {
-        
-        console.log("Hash: " + hash);
-        
         const user = await User.create({username,password:hash,email});
         res.status(200).json({
           message: "User successfully created",

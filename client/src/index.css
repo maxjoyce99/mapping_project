@@ -6,6 +6,7 @@ body {
   margin: 0;
   font-family: "Poppins";
   max-width:100%;
+  font-size: 1em;
 }
 
 #root{
@@ -206,6 +207,11 @@ header a {
 }
 .submitError{
   display: block;
+}
+
+.userCreated{
+  display: block;
+  color: green;
 }
 
 .createForm .nameInput:invalid[lastfocused = "nameInput"] ~ .nameErrorSpan {

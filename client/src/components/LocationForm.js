@@ -26,7 +26,7 @@ const LocationForm = () => {
 
         const user = token._id;
         
-        const location = { user, name, place};
+        const location = { name, place, user};
 
         const response = await fetch('/api/locations', {
             method: 'POST',
