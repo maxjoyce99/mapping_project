@@ -18,7 +18,7 @@ const loginUser = async(req, res) => {
     if (!user) {
       res.status(401).json({
         message: "Login not successful: user not found",
-        error: "User not found",
+        error: "There is no user with that username!",
       })
     } else {
       const hash = user.password;
@@ -34,7 +34,7 @@ const loginUser = async(req, res) => {
       else{
         res.status(401).json({
           message: "Login not successful: incorrect password",
-          error: "Incorrect password",
+          error: "That isn't the correct password for that user!",
         })
       }
 

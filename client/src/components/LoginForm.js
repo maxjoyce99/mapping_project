@@ -5,6 +5,7 @@ const Login = ({ setToken }) => {
 
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const [error,setError] = useState(null);
 
 
     const handleSubmit = async (e) => {
@@ -28,21 +29,13 @@ const Login = ({ setToken }) => {
         
         const json = await response.json();
 
-        return json;
-    }
-
-    const registerUser = async(newUser) => {
-        const response = await fetch('/api/login/new' , {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(newUser)
-        });
-
-        const json = await response.json();
+        if(!response.ok){
+          setError(json.error);
+      }
+      if(response.ok){
 
         return json;
+      }
     }
 
 
@@ -58,6 +51,9 @@ const Login = ({ setToken }) => {
             <p>Password</p>
             <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
           </label>
+
+          {error && <span className="submitError">{error}</span>}
+
           <div>
             <button className="formButtons" type="submit"> Login </button>
           </div>
