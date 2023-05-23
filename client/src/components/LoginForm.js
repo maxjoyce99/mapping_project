@@ -31,6 +31,7 @@ const Login = ({ setToken }) => {
 
         if(!response.ok){
           setError(json.error);
+          setPassword('');
       }
       if(response.ok){
 
@@ -45,11 +46,11 @@ const Login = ({ setToken }) => {
         <form onSubmit={handleSubmit}>
           <label>
             <p>Username</p>
-            <input type="text" placeholder="Username" onChange={e => setUserName(e.target.value)} />
+            <input required = {true} type="text" placeholder="Username" onChange={e => setUserName(e.target.value)} />
           </label>
           <label>
             <p>Password</p>
-            <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+            <input required = {true} type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} value = {password || ""} />
           </label>
 
           {error && <span className="submitError">{error}</span>}
