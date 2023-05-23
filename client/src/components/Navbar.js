@@ -28,7 +28,7 @@ const Navbar = () => {
                 </Link>
 
                 <Link to="/maplist">
-                    <h1>Map List</h1>
+                    <h1>Friends</h1>
 
                 </Link>
 
@@ -38,7 +38,7 @@ const Navbar = () => {
                 </Link>
 
                 <Link to="/edit">
-                    <h1>Edit</h1>
+                    <h1>My Points</h1>
 
                 </Link>
             </div>
