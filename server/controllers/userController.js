@@ -126,12 +126,26 @@ const getAllUsers = async(req,res) => {
     res.status(200).json(users);
 }
 
+const getSingleUser = async(req,res) => {
+  console.log("Get Single User");
+  const { username } = req.body;
+  console.log(username);
+  const user = await User.findOne({username});
+  if(user){
+  res.status(200).json({user});
+  }
+  else{
+    res.status(404).json({error: "No such user found"})
+  }
+}
+
 
 module.exports = { 
     loginUser,
     registerUser,
     updateUser,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    getSingleUser
     
 }

@@ -6,7 +6,8 @@ const {
     registerUser,
     updateUser,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    getSingleUser
 } = require("../controllers/userController");
 
 
@@ -15,6 +16,9 @@ router.post('/new',registerUser);
 
 //Get all users
 router.get('/userlist', getAllUsers);
+
+//Get Single user
+router.post('/singleuser', getSingleUser);
 
 //Update A user
 router.patch('/update/:id',updateUser);

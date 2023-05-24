@@ -5,6 +5,8 @@ import useToken from '../hooks/useToken';
 const MapList = () => {
     const [userList, setUserList] = useState([]);
     const {token, setToken} = useToken();
+    const [userName, setUserName] = useState();
+    const [friendResponse, setFriendResponse] = useState();
     //console.log("Map List Page");
 
     useEffect(() => {
@@ -30,9 +32,40 @@ const MapList = () => {
         fetchUsers();
     },[]);
 
+    const nameSubmitted = async (e) => {
+        e.preventDefault()
+        console.log(userName);
+
+        const response = await fetch('/api/login/singleuser', {
+        method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({"username": userName})
+        });
+
+        const json = await response.json();
+
+        if(response.ok){
+            console.log("Found the user");
+            console.log(json.user);
+            setFriendResponse("Adding " + json.user.username + " to your friends list!");
+        }
+        else{
+            console.log("No user found");
+            setFriendResponse("The user " + userName + " was not found.");
+        }
+    }
 
     return (
         <div>
+            <form className="newFriendForm" onSubmit={nameSubmitted}>
+            <h3> Add a friend</h3>
+            <label>Username</label>
+            <input placeholder='Username' onChange={e => setUserName(e.target.value)}/>
+            <button className = "formButtons">Add a Friend </button>
+            </form>
+            {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
         <p>Map List Page</p>
         
         {userList && userList.map((user)=> (

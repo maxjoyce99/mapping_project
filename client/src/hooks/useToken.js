@@ -5,7 +5,7 @@ const useToken = () => {
   //sessionStorage.setItem('token', null)
   
   const getToken = () => {
-    console.log("GetTokenRun")
+    //console.log("GetTokenRun")
     
     const tokenString = sessionStorage.getItem('token');
     
@@ -17,7 +17,7 @@ const useToken = () => {
   }
     
   const [token, setToken] = useState(getToken());
-  console.log(token)
+  //console.log(token)
 
   const saveToken = userToken => {
     sessionStorage.setItem('token', JSON.stringify(userToken));
