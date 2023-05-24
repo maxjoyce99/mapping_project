@@ -36,7 +36,7 @@ const MapList = () => {
         e.preventDefault()
         console.log(userName);
 
-        const response = await fetch('/api/login/singleuser', {
+        const response = await fetch('/api/login/frienduser', {
         method: 'POST',
           headers: {
             'Content-Type': 'application/json'

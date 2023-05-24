@@ -126,7 +126,7 @@ const getAllUsers = async(req,res) => {
     res.status(200).json(users);
 }
 
-const getSingleUser = async(req,res) => {
+const friendUser = async(req,res) => {
   console.log("Get Single User");
   const { username } = req.body;
   console.log(username);
@@ -146,6 +146,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllUsers,
-    getSingleUser
+    friendUser
     
 }

@@ -15,6 +15,11 @@ const UserSchema = new Mongoose.Schema({
     type: String,
     unique: true,
     required: true,
+  },
+  friends: {
+    type: Array,
+    unique: false,
+    required: false
   }
 })
 

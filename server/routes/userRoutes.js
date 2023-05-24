@@ -7,7 +7,7 @@ const {
     updateUser,
     deleteUser,
     getAllUsers,
-    getSingleUser
+    friendUser
 } = require("../controllers/userController");
 
 
@@ -18,7 +18,7 @@ router.post('/new',registerUser);
 router.get('/userlist', getAllUsers);
 
 //Get Single user
-router.post('/singleuser', getSingleUser);
+router.post('/frienduser', friendUser);
 
 //Update A user
 router.patch('/update/:id',updateUser);
