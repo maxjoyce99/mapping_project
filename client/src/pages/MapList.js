@@ -2,7 +2,7 @@ import { useEffect, useState} from 'react';
 import UserDetails from '../components/UserDetails';
 import useToken from '../hooks/useToken';
 
-const MapList = () => {
+const MapList = (props) => {
     const [userList, setUserList] = useState([]);
     const {token, setToken} = useToken();
     const [userName, setUserName] = useState();
@@ -14,6 +14,7 @@ const MapList = () => {
             const response = await fetch('/api/login/userlist')
             const json = await response.json();
             
+            
             if(response.ok) {
                 
                 for( var i = 0; i< json.length; i++){
@@ -22,6 +23,7 @@ const MapList = () => {
                     }
                 }
                 setUserList(json);
+                console.log(userList);
             }
             else{
                 console.log("Users could not be found.");
@@ -35,21 +37,23 @@ const MapList = () => {
     const nameSubmitted = async (e) => {
         e.preventDefault()
         console.log(userName);
-
+        console.log(token._id)
         const response = await fetch('/api/login/frienduser', {
         method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({"username": userName})
+          body: JSON.stringify({"username": userName,
+        "userId": token._id})
         });
 
         const json = await response.json();
+        console.log(json)
 
         if(response.ok){
             console.log("Found the user");
-            console.log(json.user);
-            setFriendResponse("Adding " + json.user.username + " to your friends list!");
+            //console.log(json);
+            setFriendResponse("Adding " + json.username + " to your friends list!");
         }
         else{
             console.log("No user found");

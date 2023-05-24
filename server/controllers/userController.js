@@ -48,14 +48,14 @@ const loginUser = async(req, res) => {
 }
 
 const registerUser = async (req, res, next) => {
-    var { username, password, email } = req.body
+    var { username, password, email, friends} = req.body
     const hash = await bcrypt.hash(password, 10);
 
     if (password.length < 6) {
       return res.status(400).json({ message: "Password less than 6 characters" })
     }
     try {
-        const user = await User.create({username,password:hash,email});
+        const user = await User.create({username,password:hash,email, friends});
         res.status(200).json({
           message: "User successfully created",
           user,
@@ -127,12 +127,20 @@ const getAllUsers = async(req,res) => {
 }
 
 const friendUser = async(req,res) => {
-  console.log("Get Single User");
-  const { username } = req.body;
+  console.log("Friend User");
+  const {username, userId} = req.body;
   console.log(username);
-  const user = await User.findOne({username});
-  if(user){
-  res.status(200).json({user});
+  console.log(userId);
+  const friendUser = await User.findOne({username});
+  const currentUser = await User.find({_id: userId});
+  console.log(friendUser)
+  console.log(currentUser)
+  if(friendUser){
+  res.status(200).json(friendUser);
+  const newFriendsList = await User.findOneAndUpdate({_id: userId}, 
+    { $push: { friends: friendUser.id } }
+  );
+
   }
   else{
     res.status(404).json({error: "No such user found"})

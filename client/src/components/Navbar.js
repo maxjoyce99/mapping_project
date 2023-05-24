@@ -11,10 +11,10 @@ const Navbar = () => {
     const {token, setToken} = useToken();
 
 
-    /*useEffect(() => {
+    useEffect(() => {
 
     console.log("Token: " + token?._id);
-    },[token]);*/
+    },[token]);
 
 
 

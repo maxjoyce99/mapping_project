@@ -10,6 +10,7 @@ const NewUser = ({ setToken }) => {
     const [email, setEmail] = useState();
     const [error,setError] = useState(null);
     const [userCreated,setUserCreated] = useState();
+    const [friends, setFriends] = useState([]);
 
 
     const handleSubmit = async (e) => {
@@ -18,7 +19,7 @@ const NewUser = ({ setToken }) => {
         const newUser = await registerUser({
           username,
           password,
-          email
+          email,
         });
         
         if(newUser){
