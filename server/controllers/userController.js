@@ -150,9 +150,6 @@ const friendUser = async(req,res) => {
 const getFriendsList = async(req,res) => {
   console.log("getFriendsList");
   const { id } = req.params; //gets id from route paramaters
-  //console.log(id);
-
-  //get friends list from Mongodb
   const currentUser = await User.findOne({_id: id});
   const friendsList = currentUser.friends;
   res.status(200).json(friendsList);

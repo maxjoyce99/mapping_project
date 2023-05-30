@@ -18,8 +18,6 @@ const MapList = (props) => {
             
             const json = await response.json();
             
-            console.log(json);
-            
             if(response.ok) {
                 
                 setUserList(json);
@@ -31,35 +29,10 @@ const MapList = (props) => {
         }
 
         fetchFriends();
-
-        
-        
-        /*const fetchUsers = async () => {
-            const response = await fetch('/api/login/userlist')
-            const json = await response.json();
-            
-            
-            if(response.ok) {
-                
-                for( var i = 0; i< json.length; i++){
-                    if(json[i]._id===token?._id){
-                        json.splice(i,1);
-                    }
-                }
-                setUserList(json);
-                console.log(userList);
-            }
-            else{
-                console.log("Users could not be found.");
-            }
-        }
-        fetchUsers();*/
     },[]);
 
     const nameSubmitted = async (e) => {
         e.preventDefault()
-        console.log(userName);
-        console.log(token._id)
         const response = await fetch('/api/login/frienduser', {
         method: 'POST',
           headers: {
@@ -70,11 +43,9 @@ const MapList = (props) => {
         });
 
         const json = await response.json();
-        console.log(json)
 
         if(response.ok){
             console.log("Found the user");
-            //console.log(json);
             setFriendResponse("Adding " + json.username + " to your friends list!");
         }
         else{
