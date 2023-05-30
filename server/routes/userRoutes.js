@@ -7,7 +7,8 @@ const {
     updateUser,
     deleteUser,
     getAllUsers,
-    friendUser
+    friendUser,
+    getFriendsList
 } = require("../controllers/userController");
 
 
@@ -16,6 +17,9 @@ router.post('/new',registerUser);
 
 //Get all users
 router.get('/userlist', getAllUsers);
+
+//Get friends list
+router.get('/friendslist/:id', getFriendsList);
 
 //Get Single user
 router.post('/frienduser', friendUser);
@@ -27,6 +31,6 @@ router.patch('/update/:id',updateUser);
 router.post('/existing',loginUser);
 
 //Delete a user (and all files??)
-router.delete('/delete/:id', deleteUser)
+router.delete('/delete/:id', deleteUser);
 
 module.exports = router;

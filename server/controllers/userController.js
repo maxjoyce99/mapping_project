@@ -138,13 +138,24 @@ const friendUser = async(req,res) => {
   if(friendUser){
   res.status(200).json(friendUser);
   const newFriendsList = await User.findOneAndUpdate({_id: userId}, 
-    { $push: { friends: friendUser.id } }
+    { $push: { friends: friendUser } }
   );
 
   }
   else{
     res.status(404).json({error: "No such user found"})
   }
+}
+
+const getFriendsList = async(req,res) => {
+  console.log("getFriendsList");
+  const { id } = req.params; //gets id from route paramaters
+  //console.log(id);
+
+  //get friends list from Mongodb
+  const currentUser = await User.findOne({_id: id});
+  const friendsList = currentUser.friends;
+  res.status(200).json(friendsList);
 }
 
 
@@ -154,6 +165,7 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllUsers,
-    friendUser
+    friendUser,
+    getFriendsList
     
 }

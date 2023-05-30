@@ -10,7 +10,31 @@ const MapList = (props) => {
     //console.log("Map List Page");
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        
+        const fetchFriends = async () => {
+            const routePath = '/api/login/friendslist/' + token._id;
+
+            const response = await fetch(routePath);
+            
+            const json = await response.json();
+            
+            console.log(json);
+            
+            if(response.ok) {
+                
+                setUserList(json);
+                console.log(userList);
+            }
+            else{
+                console.log("Users could not be found.");
+            }
+        }
+
+        fetchFriends();
+
+        
+        
+        /*const fetchUsers = async () => {
             const response = await fetch('/api/login/userlist')
             const json = await response.json();
             
@@ -29,9 +53,7 @@ const MapList = (props) => {
                 console.log("Users could not be found.");
             }
         }
-
-        
-        fetchUsers();
+        fetchUsers();*/
     },[]);
 
     const nameSubmitted = async (e) => {
