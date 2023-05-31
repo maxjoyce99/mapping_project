@@ -66,8 +66,8 @@ const NewUser = ({ setToken }) => {
             required="true" 
             type="text" 
             onChange={e => setUserName(e.target.value)} 
-            pattern = "[^]{1,30}$" 
-            title="Please enter a username between one and 30 characters"
+            pattern = "^.{1,30}$" 
+            title="Please enter a username between 1 and 30 characters"
             placeholder='Username' />
           </label>
 
@@ -80,7 +80,7 @@ const NewUser = ({ setToken }) => {
             className="passInput" 
             type="password" 
             onChange={e => setPassword(e.target.value)} 
-            pattern = "[^]{6,100}$" 
+            pattern = "^.{6,100}$" 
             title="Please enter a password with more than 6 characters" 
             placeholder="Password"
             />
