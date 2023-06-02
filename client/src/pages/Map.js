@@ -3,6 +3,11 @@ import { useLocationsContext } from '../hooks/useLocationsContext';
 import { useState, useEffect } from 'react';
 import { Tooltip } from 'react-leaflet';
 import {useLocation} from 'react-router-dom';
+import { useMap } from 'react-leaflet/hooks';
+import { useMapEvents } from 'react-leaflet/hooks';
+import { useMapEvent } from 'react-leaflet/hooks';
+import { useNavigate } from "react-router-dom";
+import { useRef } from 'react';
 
 //components
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
@@ -15,10 +20,13 @@ const Map = () => {
   const [ loading, setLoading ] = useState(true);
   var centerPosition = [ 0, -0];
   const {token, setToken} = useToken();
+  const [newLocation, setNewLocation] = useState();
+  const markerRef = useRef(null);
 
   const location = useLocation();
+  const navigate = useNavigate();
   
-  console.log(location.state.userId);
+  //console.log(location.state.userId);
 
   
 
@@ -45,8 +53,10 @@ const Map = () => {
                 console.log("Locations could not be found.");
             }
 
-
+            console.log(mapId);
         }
+
+        
 
         fetchLocations();
         
@@ -54,7 +64,39 @@ const Map = () => {
 
     },[]);
 
+    
+
+    function AddLocationComponent() {
+
+          const map = useMapEvent('click', () => {
+            console.log("Clicked")
+            map.on("click", function (e) {
+                console.log( e.latlng.lat + ", " + e.latlng.lng);
+                const newLatLong = [e.latlng.lat, e.latlng.lng]
+                setNewLocation(newLatLong);
+                console.log(newLocation);
+                const marker = markerRef.current;
+                if (marker) {
+                    marker.openPopup()
+                    //marker.popup.popupclose(console.log("popup closed"))
+                }
+              }
+            )
+          })
+    }
+
     console.log(locations);
+
+    const newLocationClicked = (props) => {
+        console.log("New Location Clicked : " + newLocation);
+        
+        navigate("/edit", {state: {newLocation: newLocation}});
+    }
+
+    const backToMap = (props) => {
+        console.log("Back To Map");
+        setNewLocation();
+    }
 
     return (
         <div key ="wholeMapDiv" className="map">
@@ -70,6 +112,19 @@ const Map = () => {
                 {locations && locations.map((location) => (
                     <LocationMarker key={"marker" + location._id} id={location._id} coord={location.place} name={location.name}/>))
                 }
+                
+                {
+                    newLocation && newLocation.map((location, idx) => (
+                        <Marker ref={markerRef} id="newLocationMarker" key={`marker-${idx}`} coord={newLocation} position={newLocation} >
+                            <Popup openOn="map"id="newLocationPopup" visible='true'>
+                                <button onClick={newLocationClicked}>Create a new location here</button>
+                                <button onClick={backToMap}>Cancel</button>
+                            </Popup>
+                        </Marker>))
+
+                }
+
+                <AddLocationComponent />
                 
             </MapContainer>
 

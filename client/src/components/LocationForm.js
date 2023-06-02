@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
 import useToken from "../hooks/useToken";
+import { useNavigate } from "react-router-dom";
+import {useLocation} from 'react-router-dom';
 
 const LocationForm = () => {
     const { dispatch } = useLocationsContext();
@@ -13,6 +15,18 @@ const LocationForm = () => {
     const [submitted,setSubmitted] = useState(false);
     const[lastFocused,setLastFocused] = useState(null);
     const {token, setToken } = useToken();
+    const location = useLocation();
+
+    useEffect(() => {
+    
+    if(location.state?.newLocation){
+    console.log(location.state?.newLocation)
+    setLat(location.state?.newLocation[0]);
+    setLong(location.state?.newLocation[1]);
+    }
+
+
+    },[]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -91,6 +105,13 @@ const LocationForm = () => {
         setLastFocused(e.target.className);
     }
 
+    const navigate = useNavigate();
+
+    const chooseMapLocation = (e) => {
+        console.log("Choose Map Location");
+        navigate('/map', {state: {userId: token?._id}});
+    }
+
     return(
         <div className="create">
         <form className="createForm" onSubmit={handleSubmit}>
@@ -104,11 +125,11 @@ const LocationForm = () => {
                 value={name || ''}
                 placeholder="Name"
                 required = {true}
-                pattern = "^[A-Za-z0-9]{1,30}$"
+                pattern = "^.{1,30}$"
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
             />
-            <span className="nameErrorSpan">Name should be 1-30 characters with no special characters.</span>
+            <span className="nameErrorSpan">Name should be 1-30 characters.</span>
             {error && <span className="submitError">{error}</span>}
 
             <label>Location Latitude: </label>
@@ -121,8 +142,9 @@ const LocationForm = () => {
                 required = {true}
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
-                min = "-90"
-                max = "90"
+                min = "-90.00"
+                max = "90.00"
+                step = "any"
             />
             <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation.</span>
 
@@ -136,8 +158,9 @@ const LocationForm = () => {
                 required = {true}
                 onBlur = {handleFocus}
                 lastfocused={lastFocused}
-                min = "-180"
-                max = "180"
+                min = "-180.00"
+                max = "180.00"
+                step = "any"
             />
             <span className="longErrorSpan">Longitude must be a number between -180 and 180. Do not use E or W designation.</span>
 
@@ -151,12 +174,15 @@ const LocationForm = () => {
             accept=".png, .jpg, .jpeg, .gif"
             />
 
-            <p>Accepted file extensions include png, jpg, jpeg, and gif. <br></br> You can add and remove pictures when needed and don't have to upload any pictures for a location.</p>
+            
 
             
             <button className="formButtons">Add Location</button>
+
+            
         </form>
-        
+        <button className="formButtons" onClick={chooseMapLocation}>Choose a Location from the Map </button>
+        <p>Accepted file extensions include png, jpg, jpeg, and gif. <br></br> You can add and remove pictures when needed and don't have to upload any pictures for a location.</p>
         </div>
     )
 }
