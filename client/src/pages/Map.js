@@ -68,20 +68,17 @@ const Map = () => {
 
     function AddLocationComponent() {
 
-          const map = useMapEvent('click', () => {
-            console.log("Clicked")
-            map.on("click", function (e) {
+          const map = useMapEvent('click', (e) => {
                 console.log( e.latlng.lat + ", " + e.latlng.lng);
                 const newLatLong = [e.latlng.lat, e.latlng.lng]
                 setNewLocation(newLatLong);
                 console.log(newLocation);
                 const marker = markerRef.current;
                 if (marker) {
+                    console.log("opening popup");
                     marker.openPopup()
                     //marker.popup.popupclose(console.log("popup closed"))
                 }
-              }
-            )
           })
     }
 
@@ -114,6 +111,7 @@ const Map = () => {
                 }
                 
                 {
+                    
                     newLocation && newLocation.map((location, idx) => (
                         <Marker ref={markerRef} id="newLocationMarker" key={`marker-${idx}`} coord={newLocation} position={newLocation} >
                             <Popup openOn="map"id="newLocationPopup" visible='true'>
@@ -121,6 +119,7 @@ const Map = () => {
                                 <button onClick={backToMap}>Cancel</button>
                             </Popup>
                         </Marker>))
+                    
 
                 }
 
