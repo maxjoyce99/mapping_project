@@ -114,9 +114,11 @@ const Map = () => {
                     
                     newLocation && newLocation.map((location, idx) => (
                         <Marker ref={markerRef} id="newLocationMarker" key={`marker-${idx}`} coord={newLocation} position={newLocation} >
-                            <Popup openOn="map"id="newLocationPopup" visible='true'>
-                                <button onClick={newLocationClicked}>Create a new location here</button>
-                                <button onClick={backToMap}>Cancel</button>
+                            <Popup width= "100%" openOn="map"id="newLocationPopup" visible='true'>
+                            <div class="popup-btn-group">
+                                <button className="formButtons"onClick={newLocationClicked}>Add New Place Here</button>
+                                <button margin="0 auto" top="50%" left="50%"position="absolute" className="formButtons" onClick={backToMap}>Cancel</button>
+                            </div>
                             </Popup>
                         </Marker>))
                     

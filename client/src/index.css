@@ -200,6 +200,12 @@ header a {
   color: white;
 }
 
+.popup-btn-group button {
+  display: block; /* Make the buttons appear below each other */
+  width:100px;
+  
+}
+
 .pictures{
   padding: 20px;
   display: grid;
