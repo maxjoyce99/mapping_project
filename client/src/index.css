@@ -143,6 +143,19 @@ header a {
   margin: 10px;
 }
 
+.imageUpload{
+  top: 700px;
+  right: 20px;
+  padding: 20px 20px;
+  position: fixed;
+  width: 20vw;
+  border: 2px solid black;
+  border-radius: 4px;
+  float: right;
+  height: 40px;
+  margin: 10px;
+}
+
 .create input {
   width: 100%;
   padding: 12px 20px;

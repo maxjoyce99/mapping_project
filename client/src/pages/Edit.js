@@ -5,6 +5,7 @@ import useToken from "../hooks/useToken";
 //components
 import LocationDetails from '../components/LocationDetails';
 import LocationForm from '../components/LocationForm';
+import ImageUpload from '../components/ImageUpload';
 
 
 const Edit = () => {
@@ -43,6 +44,7 @@ const Edit = () => {
                 </div>
 
                 <LocationForm />
+                <ImageUpload />
                 
             </div>
         )

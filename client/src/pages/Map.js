@@ -25,10 +25,7 @@ const Map = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  
-  //console.log(location.state.userId);
 
-  
 
     useEffect(() => {
 
