@@ -19,6 +19,7 @@ const Map = () => {
   const {locations, dispatch} = useLocationsContext();
   const [ loading, setLoading ] = useState(true);
   var startingCenterPosition = [ 0, 0];
+  var bounds = [[-90,-180], [90,180]]
 
   const {token, setToken} = useToken();
   const [newLocation, setNewLocation] = useState();
@@ -149,7 +150,7 @@ const Map = () => {
     return (
         <div key ="wholeMapDiv" className="map">
 
-            <MapContainer ref={mapRef} key="mapContainer" className="map" center={startingCenterPosition} zoom={3.5} scrollWheelZoom={true}>
+            <MapContainer ref={mapRef} key="mapContainer" className="map" center={startingCenterPosition} zoom={3.5} scrollWheelZoom={true} minZoom={2} maxBounds={bounds} >
 
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
