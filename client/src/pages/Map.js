@@ -18,10 +18,12 @@ import useToken from '../hooks/useToken';
 const Map = () => {
   const {locations, dispatch} = useLocationsContext();
   const [ loading, setLoading ] = useState(true);
-  var centerPosition = [ 0, -0];
+  var startingCenterPosition = [ 0, 0];
+
   const {token, setToken} = useToken();
   const [newLocation, setNewLocation] = useState();
   const markerRef = useRef(null);
+  const mapRef = useRef();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,9 +52,28 @@ const Map = () => {
                 console.log("Locations could not be found.");
             }
 
-            console.log(mapId);
+           // console.log(mapId);
+            //map.flyTo(centerPosition, 1);
+            /*if(centerPosition === undefined){
+                setCenterPosition([0,0]);
+                console.log("Ran")
+            }*/
+            /*var oldCenterTokenString = sessionStorage.getItem('centerPosition');
+
+            const oldCenter = JSON.parse(oldCenterTokenString);
+
+            const flyToPosition = [];
+
+            console.log("Current Center Position" + oldCenter.lat + " " + oldCenter.lng);*/
+
+            //console.log(flyToPosition)
+
+           
         }
 
+        console.log()
+
+        
         
 
         fetchLocations();
@@ -61,11 +82,11 @@ const Map = () => {
 
     },[]);
 
-    
-
     function AddLocationComponent() {
+        
 
-          const map = useMapEvent('click', (e) => {
+
+          const mapEvent = useMapEvent('click', (e) => {
                 console.log( e.latlng.lat + ", " + e.latlng.lng);
                 const newLatLong = [e.latlng.lat, e.latlng.lng]
                 setNewLocation(newLatLong);
@@ -76,10 +97,27 @@ const Map = () => {
                     marker.openPopup()
                     //marker.popup.popupclose(console.log("popup closed"))
                 }
+                
           })
     }
+    
 
-    console.log(locations);
+    function GetCurrentLocation() {
+    
+    //get current location // CONSOLE SHOULD READ SAME POINT
+                const map = useMapEvent('mouseup', function(e) {
+                    var centerPos = map.getCenter();
+                    sessionStorage.setItem('centerPosition', JSON.stringify(centerPos));
+                })
+
+                const map2 = useMapEvent('zoom' , function(e) {
+                    var currentZoom = map2.getZoom();
+                    console.log(currentZoom);
+                    sessionStorage.setItem('currentZoom', JSON.stringify(currentZoom));
+                })      
+    }
+
+    //console.log(locations);
 
     const newLocationClicked = (props) => {
         console.log("New Location Clicked : " + newLocation);
@@ -92,10 +130,26 @@ const Map = () => {
         setNewLocation();
     }
 
+
+    function ChangeView() {
+        const map = useMap();
+
+        var oldCenterTokenString = sessionStorage.getItem('centerPosition');
+        //console.log( "Changing view to " + oldCenterTokenString);
+        var oldZoomTokenString = sessionStorage.getItem('currentZoom');
+
+        if(oldCenterTokenString !== "undefined" && oldCenterTokenString !== null){
+            var oldCenter = JSON.parse(oldCenterTokenString);
+            var oldZoom = JSON.parse(oldZoomTokenString);
+            //console.log(oldZoom);
+            map.setView(oldCenter,oldZoom);
+        }
+    }
+    
     return (
         <div key ="wholeMapDiv" className="map">
 
-            <MapContainer key="mapContainer" className="map" center={centerPosition} zoom={3.5} scrollWheelZoom={true}>
+            <MapContainer ref={mapRef} key="mapContainer" className="map" center={startingCenterPosition} zoom={3.5} scrollWheelZoom={true}>
 
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -123,6 +177,9 @@ const Map = () => {
                 }
 
                 <AddLocationComponent />
+                <GetCurrentLocation />
+                <ChangeView />
+                
                 
             </MapContainer>
 

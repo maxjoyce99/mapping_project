@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Marker, Popup } from 'react-leaflet';
 import { Tooltip } from "react-leaflet";
+import { useMap } from "react-leaflet";
 
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -15,11 +16,16 @@ L.Icon.Default.mergeOptions({
 });
 
 
-function markerClicked(marker,id){
-    //console.log("Marker was clicked at: [" + marker + "] with ID: " + id);
-}
+
+
 const LocationMarker = (props) => {
     const navigate = useNavigate();
+
+    function markerClicked(marker,id){
+      
+      //console.log("Marker was clicked at: [" + marker + "] with ID: " + id);
+    }
+
     return(
     <Marker position={props.coord} eventHandlers={{
         click: (e) => {
