@@ -11,6 +11,7 @@ const Modify = () => {
     const [name,setName] = useState("");
     const [imageUpdated,setImageUpdated] = useState(false);
     const {token, setToken } = useToken();
+    const [pics, setPics] = useState(false);
 
     const location = useLocation();
 
@@ -70,7 +71,14 @@ const Modify = () => {
 
             if(response.ok){
             setLoading(false);
+            setPics(true);
             dispatchImage({type: 'SET_IMAGES', payload: imagePathsTemp});
+            }
+
+            if(response.status == "404"){
+                console.log("No pictures Found")
+                setLoading(false);
+                setPics(false);
             }
         }
 
@@ -79,7 +87,11 @@ const Modify = () => {
         setName(location.state.name);
     },[imageUpdated]);
 
-    if(!loading){
+
+
+    console.log("Loading " + loading);
+    console.log("Pics " + pics);
+    if(!loading && pics){
         return (
             <div className="modifyPage">
             <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place} updateName={handleNameUpdate} updateImage={handleImageUpdate}/>
@@ -98,9 +110,17 @@ const Modify = () => {
                 
             )
         }
-    else {
+    else if(loading) {
         return (
             <p>Loading Pictures...</p>
+        )
+    }
+    else if(!loading && !pics){
+        return (
+        <div>
+        <p>You don't have any pictures for this location yet. You can add them by using the Add Pictures section.</p>
+        <ModifyLocation name = {location.state.name} id = {location.state.id} place = {location.state.place} updateName={handleNameUpdate} updateImage={handleImageUpdate}/>
+        </div>
         )
     }
 }

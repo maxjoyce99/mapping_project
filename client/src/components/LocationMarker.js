@@ -30,7 +30,7 @@ const LocationMarker = (props) => {
     <Marker position={props.coord} eventHandlers={{
         click: (e) => {
           markerClicked(props.coord, props.id);
-          navigate("/pictures", {state: {id: props.id, name:props.name}});
+          navigate("/pictures", {state: {id: props.id, name:props.name, place: props.coord}});
         },
     }}
     >
