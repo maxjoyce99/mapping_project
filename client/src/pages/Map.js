@@ -23,6 +23,7 @@ const Map = () => {
 
   const {token, setToken} = useToken();
   const [newLocation, setNewLocation] = useState();
+  const [ownership, setOwnership] = useState(false); 
   const markerRef = useRef(null);
   const mapRef = useRef();
 
@@ -53,41 +54,28 @@ const Map = () => {
                 console.log("Locations could not be found.");
             }
 
-           // console.log(mapId);
-            //map.flyTo(centerPosition, 1);
-            /*if(centerPosition === undefined){
-                setCenterPosition([0,0]);
-                console.log("Ran")
-            }*/
-            /*var oldCenterTokenString = sessionStorage.getItem('centerPosition');
-
-            const oldCenter = JSON.parse(oldCenterTokenString);
-
-            const flyToPosition = [];
-
-            console.log("Current Center Position" + oldCenter.lat + " " + oldCenter.lng);*/
-
-            //console.log(flyToPosition)
 
            
         }
-
-        console.log()
 
         
         
 
         fetchLocations();
         
-
+        if(token._id === location.state.userId){
+            setOwnership(true);
+        }
 
     },[]);
 
     function AddLocationComponent() {
+        console.log(ownership);
+        
         
 
-
           const mapEvent = useMapEvent('click', (e) => {
+            if(ownership){
                 console.log( e.latlng.lat + ", " + e.latlng.lng);
                 const newLatLong = [e.latlng.lat, e.latlng.lng]
                 setNewLocation(newLatLong);
@@ -98,8 +86,10 @@ const Map = () => {
                     marker.openPopup()
                     //marker.popup.popupclose(console.log("popup closed"))
                 }
+            }
                 
-          })
+      })
+
     }
     
 
