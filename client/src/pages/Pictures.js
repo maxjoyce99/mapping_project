@@ -10,6 +10,7 @@ const Pictures = () => {
     const [loading,setLoading] = useState(true);
     const {token, setToken } = useToken();
     const [pics, setPics] = useState(false);
+    const [ownership, setOwnership] = useState(false); 
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -42,6 +43,10 @@ const Pictures = () => {
 
         fetchFolder();
         console.log(imagePaths);
+        if(token._id === location.state.userId){
+            setOwnership(true);
+        }
+        
     },[]);
 
     const addPictures = async() => {
@@ -60,18 +65,23 @@ const Pictures = () => {
         <p>There aren't any pictures for this location.</p>
         
         
-        <button onClick={addPictures}>Add some pictures</button>
+        {ownership &&  <button onClick={addPictures}>Add some pictures</button>}
         </div>
         
         )
     }
+
+    //only show edit pictures button if token._id = location.state.userId
+
+    console.log(token._id);
+    console.log(location.state.userId);
 
     if(!loading && pics){
         return (
                 <div className="picturesPage">
                     
                     <h3>Pictures for Location: {location.state.name}</h3> 
-                    <button onClick={addPictures}>Edit Pictures</button>
+                    {ownership && <button onClick={addPictures}>Edit Pictures</button>}
                     <div className="pictures">
                     {imagePaths && imagePaths.map((path) => (
                             

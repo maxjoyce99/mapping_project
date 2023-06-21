@@ -159,7 +159,7 @@ const Map = () => {
                 />
                 
                 {locations && locations.map((location) => (
-                    <LocationMarker key={"marker" + location._id} id={location._id} coord={location.place} name={location.name}/>))
+                    <LocationMarker key={"marker" + location._id} id={location._id} coord={location.place} name={location.name} userId={location.user}/>))
                 }
                 
                 {
