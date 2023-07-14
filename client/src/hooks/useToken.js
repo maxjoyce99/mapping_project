@@ -11,7 +11,12 @@ const useToken = () => {
     
     const userToken = JSON.parse(tokenString);
     
+    if(userToken?.token){
     return userToken?.token
+    }
+    else {
+      return {_id: 'NOUSER', username: 'NOUSER', password: 'NOUSER', email: 'NOUSER'}
+    }
     
 
   }

@@ -33,9 +33,19 @@ const Map = () => {
 
     useEffect(() => {
 
+        console.log(token?._id)
+        console.log(location.state?.userId)
+
+        if(token?._id === location.state?.userId){
+            setOwnership(true);
+        }
+        else {
+            setOwnership(false);
+        }
+
         const fetchLocations = async () => {
             var mapId = '';
-            if(!location.state.userId){
+            if(location.state?.userId === 'NOUSER'){
                 mapId = token._id;
             }
             else{
@@ -63,18 +73,17 @@ const Map = () => {
 
         fetchLocations();
         
-        if(token._id === location.state.userId){
-            setOwnership(true);
-        }
+        
 
     },[]);
 
     function AddLocationComponent() {
-        console.log(ownership);
+        
         
         
 
           const mapEvent = useMapEvent('click', (e) => {
+            console.log(ownership);
             if(ownership){
                 console.log( e.latlng.lat + ", " + e.latlng.lng);
                 const newLatLong = [e.latlng.lat, e.latlng.lng]

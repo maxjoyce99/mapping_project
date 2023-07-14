@@ -28,7 +28,10 @@ const MapList = (props) => {
             }
         }
 
+        if(token._id !== 'NOUSER'){
+
         fetchFriends();
+        }
     },[]);
 
     const nameSubmitted = async (e) => {

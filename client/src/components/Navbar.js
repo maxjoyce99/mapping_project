@@ -16,7 +16,15 @@ const Navbar = () => {
     console.log("Token: " + token?._id);
     },[token]);
 
+    const printToken = () => {
+        console.log(token?._id)
+    }
 
+    const setState = () => {
+        if(token._id){
+
+        }
+    }
 
     return (
         <header>
@@ -32,7 +40,7 @@ const Navbar = () => {
 
                 </Link>
 
-                <Link to="/map" state={{userId: token?._id}}>
+                <Link to="/map" onClick= {printToken} state={{userId: token._id}}>
                     <h1>My Map</h1>
 
                 </Link>

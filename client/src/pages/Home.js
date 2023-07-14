@@ -12,7 +12,7 @@ const Home = () => {
         setNewUser(!newUser);
     }
 
-    if(!token) {
+    if(token._id === 'NOUSER') {
         if(newUser) {
             return (
                 <>
@@ -30,7 +30,7 @@ const Home = () => {
         )
         }
     }
-    if(token){
+    else{
 
     return (
             <div className="home">
