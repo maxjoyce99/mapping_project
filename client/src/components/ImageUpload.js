@@ -148,7 +148,7 @@ const ImageUpload = () => {
                 accept=".png, .jpg, .jpeg, .gif"
                 />
                 
-        <button className="formButtons">Add Pics</button>
+        <button className="formButtons">Add Pictures</button>
         </form>
         </div>
     )

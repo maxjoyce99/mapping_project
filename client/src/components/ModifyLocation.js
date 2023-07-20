@@ -196,7 +196,7 @@ const ModifyLocation = (props) => {
         <form className="createForm" onSubmit={changeLocation}>
             <h3>Modify this location: </h3>
             <p>Current Name: {name} </p>
-            <p>Current Coordinates: [{lat},{long}] </p>
+            <p>Current Coordinates: [{Number(lat).toFixed(2)},{Number(long).toFixed(2)}] </p>
         
        
             <label>New Location Name:</label>
@@ -247,26 +247,30 @@ const ModifyLocation = (props) => {
             <button className="formButtons">Change Location</button>
         </form>
 
-        
-        <form className="addFiles" onSubmit={fileSubmittedHandler}>        
-
-        <label>Add more pictures: </label>
-            <input
-            type="file"
-            onChange={((e) => setFiles(e.target.files))}
-            name="images"
-            multiple="yes"
-            className="formButtons"
-            accept=".png, .jpg, .jpeg, .gif"
-            />
-        <button className="formButtons">Add Pictures</button>
-
-            <p>Accepted file extensions include png, jpg, jpeg, and gif.</p>
-        
-        
-        </form>
-
         </div>
+
+            <div className="imageUpload">
+                <h3>Add more pictures </h3>
+                <form className='imageUploadForm' onSubmit={fileSubmittedHandler}>        
+                
+                
+                    <input
+                    type="file"
+                    onChange={((e) => setFiles(e.target.files))}
+                    name="images"
+                    multiple="yes"
+                    className="formButtons"
+                    accept=".png, .jpg, .jpeg, .gif"
+                    />
+                <button className="formButtons">Add Pictures</button>
+
+                
+                </form>
+            </div>
+        
+        
+
+        
         </>
     )
 }
