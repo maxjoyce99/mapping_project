@@ -42,7 +42,7 @@ const Edit = () => {
                         <LocationDetails key={"details" + location._id} location={location} />))
                     }
                 </div>
-
+            
                 <LocationForm />
                 <ImageUpload />
                 

@@ -8,8 +8,6 @@ const LocationDetails = ({location}) => {
     const { dispatch } = useLocationsContext();
     const {token, setToken} = useToken();
 
-
-
     const handleDeleteClick = async () => {
         confirmAlert({
         title: 'Confirm Location Deletion',
@@ -62,18 +60,43 @@ const LocationDetails = ({location}) => {
 
     }
 
+    const formatTime = () => {
+        const created_date = new Date(location.createdAt);
+        var year = created_date.getFullYear();
+        var month = created_date.getMonth();
+        var date = created_date.getDate();
+        var hour = created_date.getHours();
+
+        if(hour>12){
+            hour = hour-12
+        }
+
+        var min = created_date.getMinutes();
+
+        if(min<10) {
+            min = '0' + min;
+        }
+        var sec = created_date.getSeconds();
+        var formattedTime = month + '/'  + date + '/' + year + ' ' + hour + ':' + min ;
+
+        return formattedTime;
+
+    }
+
+    const formattedTime = formatTime(location.createdAt);
 
     return(
-        <ul className="location-details">
-            <h4 key="title">{location.title}</h4>
+        <div className="location-details">
             <p key="name"><strong> Name : </strong>{location.name}</p>
-            <p key="place"><strong> Place : </strong>[{location.place[0]},{location.place[1]}]</p>
-            <p key="timeCreated"><strong> Time Created: </strong>{location.createdAt}</p>
-
+            <p key="place"><strong> Coordinates : </strong>[{Number(location.place[0]).toFixed(2)}, {Number(location.place[1]).toFixed(2)}]</p>
+            <p key="timeCreated"><strong> Created On: </strong>{formattedTime}</p>
+            
+            <div>
             <button className="deletelocation" onClick={handleDeleteClick}>Delete</button>
             <button className="modifylocation" onClick={handleModifyClick}>Modify</button>
-
-        </ul>
+            </div>
+        </div>
+             
     )
 }
 
