@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { useState } from 'react';
 
 //pages and componenets
-import Home from './pages/Home'
+import SignIn from './pages/SignIn'
 import Navbar from './components/Navbar'
 import Edit from './pages/Edit'
 import Map from './pages/Map'
@@ -10,11 +10,12 @@ import Pictures from './pages/Pictures'
 import Modify from './pages/Modify'
 import Login from './components/LoginForm';
 import MapList from './pages/MapList';
+import Home from './pages/Home';
 
 function App() {
   
   return (
-    <div className="App">
+    <div className="App" >
       <Router>
       <Navbar />
         <div className="pages">
@@ -47,6 +48,11 @@ function App() {
               <Route  
                 path="/maplist"
                 element={<MapList />}
+              />
+
+              <Route  
+                path="/signIn"
+                element={<SignIn />}
               />
             </Routes>
         </div>

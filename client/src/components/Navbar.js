@@ -41,7 +41,9 @@ const Navbar = () => {
         if(loggedIn){
         sessionStorage.clear();
         window.location.reload();
+        navigate('/signIn');
         }
+        navigate('/');
     }
 
     return (
@@ -68,7 +70,7 @@ const Navbar = () => {
 
                 </Link>
 
-                <Link className="nav-element" onClick={handleSignInOut} to="/">
+                <Link className="nav-element" onClick={handleSignInOut} to="/signIn">
                     <h1>{loginButtonText}</h1>
                 
                 </Link>
