@@ -40,13 +40,8 @@ const Navbar = () => {
     const handleSignInOut = (e) => {
         if(loggedIn){
         sessionStorage.clear();
-        navigate("/");
         window.location.reload();
         }
-        if(!loggedIn){
-            navigate("/");
-        }
-        
     }
 
     return (
@@ -73,7 +68,10 @@ const Navbar = () => {
 
                 </Link>
 
-                <button className="logout-button" onClick={handleSignInOut}>{loginButtonText}</button>
+                <Link className="nav-element" onClick={handleSignInOut} to="/">
+                    <h1>{loginButtonText}</h1>
+                
+                </Link>
             </div>
             
 
