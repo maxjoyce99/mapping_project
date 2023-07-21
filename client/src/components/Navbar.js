@@ -1,19 +1,30 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
-
-const handleLogout = (e) => {
-    sessionStorage.clear();
-    window.location.reload();
-}
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const {token, setToken} = useToken();
+    const [loggedIn,setLoggedIn] = useState(false);
+    const [loginButtonText, setLoginButtonText] = useState("Login");
+    const navigate = useNavigate();
 
 
     useEffect(() => {
 
-    console.log("Token: " + token?._id);
+        console.log("Token: " + token?._id);
+
+        if(token._id !== 'NOUSER'){
+            setLoggedIn(true);
+            console.log("Logged in")
+            setLoginButtonText("Sign Out");
+        }
+        else{
+            setLoggedIn(false);
+            setLoginButtonText("Sign In");
+            console.log("Logged Out")
+        }
+
     },[token]);
 
     const printToken = () => {
@@ -26,31 +37,45 @@ const Navbar = () => {
         }
     }
 
+    const handleSignInOut = (e) => {
+        if(loggedIn){
+        sessionStorage.clear();
+        navigate("/");
+        window.location.reload();
+        }
+        if(!loggedIn){
+            navigate("/");
+        }
+        
+    }
+
     return (
         <header>
             <div className="navbar">
 
-                <Link to="/">
+                <Link className="nav-element" to="/">
                     <h1>Home</h1>
 
                 </Link>
 
-                <Link to="/maplist">
+                <Link className="nav-element" to="/maplist">
                     <h1>Friends</h1>
 
                 </Link>
 
-                <Link to="/map" onClick= {printToken} state={{userId: token._id}}>
+                <Link className="nav-element" to="/map" onClick= {printToken} state={{userId: token._id}}>
                     <h1>My Map</h1>
 
                 </Link>
 
-                <Link to="/edit">
+                <Link className="nav-element" to="/edit">
                     <h1>My Points</h1>
 
                 </Link>
+
+                <button className="logout-button" onClick={handleSignInOut}>{loginButtonText}</button>
             </div>
-            <button className="formButtons"onClick={handleLogout}>Logout</button>
+            
 
         </header>
     )

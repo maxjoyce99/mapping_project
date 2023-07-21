@@ -16,6 +16,7 @@ const Login = ({ setToken }) => {
         });
         console.log(token);
         setToken(token);
+        window.location.reload();
     }
 
     const loginUser = async(credentials) => {
