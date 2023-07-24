@@ -11,7 +11,7 @@ const Home = () => {
             <div className="home">
 
                   <p>THIS IS THE HOMEPAGE</p> 
-                  
+                  <p> explain website and provide screenshot + link to my map</p>
             </div>
         )
     

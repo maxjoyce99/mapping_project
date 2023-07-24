@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const { ReturnDocument } = require("mongodb");
 
 //Login existing user
 const loginUser = async(req, res) => {
@@ -155,6 +156,29 @@ const getFriendsList = async(req,res) => {
   res.status(200).json(friendsList);
 }
 
+const deleteFriend = async(req,res) => {
+  //console.log(req.body);
+  const friendToDelete = req.body;
+
+  const { id } = req.params; //gets id from route paramaters
+
+    if(!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({error: 'No such user'});
+    }
+    
+    try{
+        const user = await User.updateOne({_id: id}, {
+           $pull: { friends: friendToDelete} 
+        });
+        res.status(200).json(deletedFriend);
+        console.log("Deleting Friend");
+    }catch(err) {
+            res.status(400).json({error: "Database Error"});
+
+    }
+
+}
+
 
 module.exports = { 
     loginUser,
@@ -163,6 +187,7 @@ module.exports = {
     deleteUser,
     getAllUsers,
     friendUser,
-    getFriendsList
+    getFriendsList,
+    deleteFriend
     
 }

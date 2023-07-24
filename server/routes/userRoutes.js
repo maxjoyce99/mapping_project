@@ -8,7 +8,8 @@ const {
     deleteUser,
     getAllUsers,
     friendUser,
-    getFriendsList
+    getFriendsList,
+    deleteFriend
 } = require("../controllers/userController");
 
 
@@ -21,8 +22,11 @@ router.get('/userlist', getAllUsers);
 //Get friends list
 router.get('/friendslist/:id', getFriendsList);
 
-//Get Single user
+//Friend a user
 router.post('/frienduser', friendUser);
+
+//Delete a friend
+router.patch('/deletefriend/:id', deleteFriend);
 
 //Update A user
 router.patch('/update/:id',updateUser);

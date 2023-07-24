@@ -57,24 +57,34 @@ const MapList = (props) => {
         }
     }
 
-    return (
-        <div>
-            <form className="newFriendForm" onSubmit={nameSubmitted}>
-            <h3> Add a friend</h3>
-            <label>Username</label>
-            <input placeholder='Username' onChange={e => setUserName(e.target.value)}/>
-            <button className = "formButtons">Add a Friend </button>
-            </form>
-            {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
-        <p>Map List Page</p>
-        
-        {userList && userList.map((user)=> (
+    if(token._id !== 'NOUSER'){
 
-            <UserDetails key={user.username} username={user.username} id={user._id}></UserDetails>
+        return (
+            <div>
+                <form className="newFriendForm" onSubmit={nameSubmitted}>
+                <h3> Add a friend</h3>
+                <label>Username</label>
+                <input placeholder='Username' onChange={e => setUserName(e.target.value)}/>
+                <button className = "formButtons">Add a Friend </button>
+                </form>
+                {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
+            <p>Friends List</p>
             
-        ))}
-        </div>
-    )
+            {userList && userList.map((user)=> (
+
+                <UserDetails key={user.username} username={user.username} id={user._id}></UserDetails>
+                
+            ))}
+            </div>
+        )
+    }
+    else{
+        return (
+            <p>Make an account or log in to add friends!</p>
+        )
+    }
+
+
 }
 
 export default MapList;
