@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 //routes
 app.use("/api/locations", locationRoutes);
 app.use("/api/pictures", pictureRoutes);
-app.use("/api/login", userRoutes);
+app.use("/api/users", userRoutes);
 
 //static files middleware
 app.use('/uploads', express.static('uploads'));

@@ -31,7 +31,7 @@ const NewUser = ({ setToken }) => {
     }
 
     const registerUser = async(newUser) => {
-        const response = await fetch('/api/login/new' , {
+        const response = await fetch('/api/users/new' , {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

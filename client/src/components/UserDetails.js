@@ -12,7 +12,7 @@ const UserDetails = (props) => {
 
     const handleUnfriend = async(e) => {
     
-        const fetchUrl = '/api/login/deletefriend/' + token._id;
+        const fetchUrl = '/api/users/deletefriend/' + token._id;
         console.log(fetchUrl);
                 const response = await fetch(fetchUrl, {
                     method: 'PATCH',

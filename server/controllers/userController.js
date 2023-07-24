@@ -157,7 +157,7 @@ const getFriendsList = async(req,res) => {
 }
 
 const deleteFriend = async(req,res) => {
-  //console.log(req.body);
+  console.log(req.body);
   const friendToDelete = req.body;
 
   const { id } = req.params; //gets id from route paramaters
@@ -170,7 +170,7 @@ const deleteFriend = async(req,res) => {
         const user = await User.updateOne({_id: id}, {
            $pull: { friends: friendToDelete} 
         });
-        res.status(200).json(deletedFriend);
+        res.status(200).json(friendToDelete);
         console.log("Deleting Friend");
     }catch(err) {
             res.status(400).json({error: "Database Error"});

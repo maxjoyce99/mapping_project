@@ -20,7 +20,7 @@ const Login = ({ setToken }) => {
     }
 
     const loginUser = async(credentials) => {
-        const response = await fetch('/api/login/existing', {
+        const response = await fetch('/api/users/existing', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

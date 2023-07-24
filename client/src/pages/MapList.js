@@ -12,7 +12,7 @@ const MapList = (props) => {
     useEffect(() => {
         
         const fetchFriends = async () => {
-            const routePath = '/api/login/friendslist/' + token._id;
+            const routePath = '/api/users/friendslist/' + token._id;
 
             const response = await fetch(routePath);
             
@@ -36,7 +36,7 @@ const MapList = (props) => {
 
     const nameSubmitted = async (e) => {
         e.preventDefault()
-        const response = await fetch('/api/login/frienduser', {
+        const response = await fetch('/api/users/frienduser', {
         method: 'POST',
           headers: {
             'Content-Type': 'application/json'
