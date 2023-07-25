@@ -127,19 +127,20 @@ const getAllUsers = async(req,res) => {
     res.status(200).json(users);
 }
 
-const friendUser = async(req,res) => {
+const friendUser = async(req,res) => { // store just username and id. 
   console.log("Friend User");
   const {username, userId} = req.body;
   console.log(username);
   console.log(userId);
   const friendUser = await User.findOne({username});
   const currentUser = await User.find({_id: userId});
+  const addToFriends = {username: friendUser.username, id:friendUser._id}
   console.log(friendUser)
   console.log(currentUser)
   if(friendUser){
   res.status(200).json(friendUser);
   const newFriendsList = await User.findOneAndUpdate({_id: userId}, 
-    { $push: { friends: friendUser } }
+    { $push: { friends: addToFriends } }
   );
 
   }
