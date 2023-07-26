@@ -23,6 +23,9 @@ router.get('/userlist', getAllUsers);
 //Get friends list
 router.get('/friendslist/:id', getFriendsList);
 
+//Get pending request list
+router.get('/pendinglsit/:id', getPendingList);
+
 //Friend a user
 router.post('/frienduser', friendUser);
 

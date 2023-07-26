@@ -36,8 +36,8 @@ const MapList = (props) => {
 
     const nameSubmitted = async (e) => {
         e.preventDefault()
-        const response = await fetch('/api/users/frienduser', {
-        method: 'POST',
+        const response = await fetch('/api/users/requestuser', {
+        method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
           },
