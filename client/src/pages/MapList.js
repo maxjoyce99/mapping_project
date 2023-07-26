@@ -1,9 +1,11 @@
 import { useEffect, useState} from 'react';
 import UserDetails from '../components/UserDetails';
 import useToken from '../hooks/useToken';
+import PendingUser from '../components/PendingUser';
 
 const MapList = (props) => {
     const [userList, setUserList] = useState([]);
+    const [pendingList, setPendingList] = useState([]);
     const {token, setToken} = useToken();
     const [userName, setUserName] = useState();
     const [friendResponse, setFriendResponse] = useState();
@@ -28,10 +30,32 @@ const MapList = (props) => {
             }
         }
 
+        const fetchPending = async () => {
+            const routePath = '/api/users/pendinglist/' + token._id;
+
+            const response = await fetch(routePath);
+            
+            const json = await response.json();
+            
+            if(response.ok) {
+                
+                setPendingList(json);
+                console.log(userList);
+            }
+            else{
+                console.log("Users could not be found.");
+            }
+        }
+
         if(token._id !== 'NOUSER'){
 
         fetchFriends();
+        fetchPending();
+        console.log(pendingList);
         }
+
+        
+
     },[]);
 
     const nameSubmitted = async (e) => {
@@ -75,6 +99,15 @@ const MapList = (props) => {
                 <UserDetails key={user.username} username={user.username} id={user._id}></UserDetails>
                 
             ))}
+
+            {pendingList && pendingList.map((user)=> (
+
+            <PendingUser key={user.username} username={user.username} id={user._id}></PendingUser>
+
+            ))}
+
+
+
             </div>
         )
     }
