@@ -127,7 +127,7 @@ const getAllUsers = async(req,res) => {
     res.status(200).json(users);
 }
 
-const friendUser = async(req,res) => { // store just username and id. 
+const friendUser = async(req,res) => { //rename to accept follow and rework
   console.log("Friend User");
   const {username, userId} = req.body;
   console.log(username);
@@ -141,6 +141,29 @@ const friendUser = async(req,res) => { // store just username and id.
   res.status(200).json(friendUser);
   const newFriendsList = await User.findOneAndUpdate({_id: userId}, 
     { $push: { friends: addToFriends } }
+  );
+
+  }
+  else{
+    res.status(404).json({error: "No such user found"})
+  }
+}
+
+const requestUser = async(req,res) => { 
+  console.log("Follow User");
+  const {username, userId} = req.body;
+  console.log(username);
+  console.log(userId);
+  const friendUser = await User.findOne({username});
+  const currentUser = await User.findOne({_id: userId});
+  const currentUserAdd = {username: currentUser.username, id:currentUser._id}
+  console.log(friendUser)
+  console.log(currentUser)
+  console.log(currentUserAdd);
+  if(friendUser){
+  res.status(200).json(friendUser);
+  const newFriendsList = await User.findOneAndUpdate({_id: friendUser._id}, 
+    { $push: { pending: currentUserAdd } }
   );
 
   }
@@ -189,6 +212,7 @@ module.exports = {
     getAllUsers,
     friendUser,
     getFriendsList,
-    deleteFriend
+    deleteFriend,
+    requestUser
     
 }

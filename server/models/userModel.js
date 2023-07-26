@@ -20,6 +20,11 @@ const UserSchema = new Mongoose.Schema({
     type: Array,
     unique: false,
     required: false
+  },
+  pending: {
+    type: Array,
+    unique: false,
+    required: false
   }
 })
 

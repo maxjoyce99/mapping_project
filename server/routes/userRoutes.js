@@ -9,7 +9,8 @@ const {
     getAllUsers,
     friendUser,
     getFriendsList,
-    deleteFriend
+    deleteFriend,
+    requestUser
 } = require("../controllers/userController");
 
 
@@ -24,6 +25,9 @@ router.get('/friendslist/:id', getFriendsList);
 
 //Friend a user
 router.post('/frienduser', friendUser);
+
+//Follow a user
+router.patch('/requestuser', requestUser);
 
 //Delete a friend
 router.patch('/deletefriend/:id', deleteFriend);
