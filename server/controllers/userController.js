@@ -203,6 +203,14 @@ const deleteFriend = async(req,res) => {
 
 }
 
+const getPendingList = async(req,res) => {
+  console.log("getFriendsList");
+  const { id } = req.params; //gets id from route paramaters
+  const currentUser = await User.findOne({_id: id});
+  const pendingList = currentUser.pending;
+  res.status(200).json(pendingList);
+}
+
 
 module.exports = { 
     loginUser,
@@ -213,6 +221,7 @@ module.exports = {
     friendUser,
     getFriendsList,
     deleteFriend,
-    requestUser
+    requestUser,
+    getPendingList
     
 }

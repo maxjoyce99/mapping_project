@@ -10,7 +10,8 @@ const {
     friendUser,
     getFriendsList,
     deleteFriend,
-    requestUser
+    requestUser,
+    getPendingList
 } = require("../controllers/userController");
 
 
@@ -24,12 +25,12 @@ router.get('/userlist', getAllUsers);
 router.get('/friendslist/:id', getFriendsList);
 
 //Get pending request list
-router.get('/pendinglsit/:id', getPendingList);
+router.get('/pendinglist/:id', getPendingList);
 
-//Friend a user
+//Friend a user/accept friend (need to change);
 router.post('/frienduser', friendUser);
 
-//Follow a user
+//Request a user
 router.patch('/requestuser', requestUser);
 
 //Delete a friend
