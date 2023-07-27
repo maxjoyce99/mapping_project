@@ -193,26 +193,29 @@ const getFriendsList = async(req,res) => {
   res.status(200).json(friendsList);
 }
 
-const deleteFriend = async(req,res) => {
+const unFriend = async(req,res) => {
   console.log(req.body);
-  const friendToDelete = req.body;
+  const {friendToDelete,currentUserId} = req.body;
 
-  const { id } = req.params; //gets id from route paramaters
+  const otherUser = await User.findOne({friendToDelete});
+  const currentUser = await User.findOne({_id: currentUserId});
 
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({error: 'No such user'});
-    }
-    
-    try{
-        const user = await User.updateOne({_id: id}, {
-           $pull: { friends: friendToDelete} 
-        });
-        res.status(200).json(friendToDelete);
+
+  const newFriendsList = await User.findOneAndUpdate({_id: currentUserId}, 
+    { $pull: { friends: {username: otherUser.username} }});
+
+  const newFriendsList2 = await User.findOneAndUpdate({_id: otherUser._id},
+    { $pull: { friends: {username: currentUser.username}} });
+
+
+  if(newFriendsList && newFriendsList2){
+        res.status(200).json(otherUser.username + " is no longer friends with " + currentUser.username);
         console.log("Deleting Friend");
-    }catch(err) {
-            res.status(400).json({error: "Database Error"});
+  }
+  else {
+    res.status(404).json({error: "Failed to unfriend these users"})
+  }
 
-    }
 
 }
 
@@ -233,7 +236,7 @@ module.exports = {
     getAllUsers,
     friendUser,
     getFriendsList,
-    deleteFriend,
+    unFriend,
     requestUser,
     getPendingList
     

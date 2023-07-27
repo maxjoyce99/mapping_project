@@ -9,7 +9,7 @@ const {
     getAllUsers,
     friendUser,
     getFriendsList,
-    deleteFriend,
+    unFriend,
     requestUser,
     getPendingList
 } = require("../controllers/userController");
@@ -34,7 +34,7 @@ router.patch('/frienduser', friendUser);
 router.patch('/requestuser', requestUser);
 
 //Delete a friend
-router.patch('/deletefriend/:id', deleteFriend);
+router.patch('/unfriend', unFriend);
 
 //Update A user
 router.patch('/update/:id',updateUser);

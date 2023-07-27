@@ -12,11 +12,12 @@ const UserDetails = (props) => {
 
     const handleUnfriend = async(e) => {
     
-        const fetchUrl = '/api/users/deletefriend/' + token._id;
+        const fetchUrl = '/api/users/unfriend/';
         console.log(fetchUrl);
                 const response = await fetch(fetchUrl, {
                     method: 'PATCH',
-                    body: JSON.stringify({'username': props.username}),
+                    body: JSON.stringify({'friendToDelete': props.username,
+                                          'currentUserId': token._id  }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
