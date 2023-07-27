@@ -28,7 +28,7 @@ router.get('/friendslist/:id', getFriendsList);
 router.get('/pendinglist/:id', getPendingList);
 
 //Friend a user/accept friend (need to change);
-router.post('/frienduser', friendUser);
+router.patch('/frienduser', friendUser);
 
 //Request a user
 router.patch('/requestuser', requestUser);

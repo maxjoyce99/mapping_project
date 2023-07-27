@@ -127,25 +127,36 @@ const getAllUsers = async(req,res) => {
     res.status(200).json(users);
 }
 
-const friendUser = async(req,res) => { //rename to accept follow and rework
+const friendUser = async(req,res) => { //add to eachtohers friends list
   console.log("Friend User");
-  const {username, userId} = req.body;
-  console.log(username);
-  console.log(userId);
-  const friendUser = await User.findOne({username});
-  const currentUser = await User.find({_id: userId});
-  const addToFriends = {username: friendUser.username, id:friendUser._id}
-  console.log(friendUser)
-  console.log(currentUser)
-  if(friendUser){
-  res.status(200).json(friendUser);
-  const newFriendsList = await User.findOneAndUpdate({_id: userId}, 
-    { $push: { friends: addToFriends } }
-  );
+  const {userRequesting, currentUserId} = req.body;
+  //console.log(userRequesting);
+  //console.log(currentUserId);
+  const requestingUser = await User.findOne({userRequesting});
+  const currentUser = await User.findOne({_id: currentUserId});
+  const requestingUserAdd = {username: requestingUser.username, id:requestingUser._id};
+  const currentUserAdd = {username: currentUser.username, id:currentUser._id};
+  console.log(requestingUser.username)
+  console.log(currentUser.username)
+    
+
+    //add 
+    const newFriendsList = await User.findOneAndUpdate({_id: currentUserId}, 
+      { $push: { friends: requestingUserAdd } }
+    );
+
+
+    const newFriendsList2 = await User.findOneAndUpdate({_id: requestingUser._id}, 
+      { $push: { friends: currentUserAdd } }
+    );
+
+  if(newFriendsList && newFriendsList2){
+
+    res.status(200).json(requestingUser.username + " is now friends with " + currentUser.username);
 
   }
   else{
-    res.status(404).json({error: "No such user found"})
+    res.status(404).json({error: "No such users found"})
   }
 }
 
@@ -161,10 +172,12 @@ const requestUser = async(req,res) => {
   console.log(currentUser)
   console.log(currentUserAdd);
   if(friendUser){
-  res.status(200).json(friendUser);
+  
   const newFriendsList = await User.findOneAndUpdate({_id: friendUser._id}, 
     { $push: { pending: currentUserAdd } }
   );
+
+  res.status(200).json(friendUser);
 
   }
   else{
