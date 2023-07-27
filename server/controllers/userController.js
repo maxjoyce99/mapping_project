@@ -127,17 +127,22 @@ const getAllUsers = async(req,res) => {
     res.status(200).json(users);
 }
 
-const friendUser = async(req,res) => { //add to eachtohers friends list
+const friendUser = async(req,res) => { //add to eachtohers friends list (endpoint broken)
   console.log("Friend User");
   const {userRequesting, currentUserId} = req.body;
-  //console.log(userRequesting);
-  //console.log(currentUserId);
-  const requestingUser = await User.findOne({userRequesting});
-  const currentUser = await User.findOne({_id: currentUserId});
+  console.log(userRequesting);
+  console.log(currentUserId);
+
+  const requestingUser = await User.findOne({"username": userRequesting});
+  console.log(requestingUser._id);
   const requestingUserAdd = {username: requestingUser.username, id:requestingUser._id};
+
+  const currentUser = await User.findOne({_id: currentUserId});
+
+  
   const currentUserAdd = {username: currentUser.username, id:currentUser._id};
-  console.log(requestingUser.username)
-  console.log(currentUser.username)
+  
+  console.log(currentUser._id);
     
 
     //add 
@@ -165,7 +170,7 @@ const requestUser = async(req,res) => {
   const {username, userId} = req.body;
   console.log(username);
   console.log(userId);
-  const friendUser = await User.findOne({username});
+  const friendUser = await User.findOne({"username": username});
   const currentUser = await User.findOne({_id: userId});
   const currentUserAdd = {username: currentUser.username, id:currentUser._id}
   console.log(friendUser)
@@ -197,7 +202,7 @@ const unFriend = async(req,res) => {
   console.log(req.body);
   const {friendToDelete,currentUserId} = req.body;
 
-  const otherUser = await User.findOne({friendToDelete});
+  const otherUser = await User.findOne({"username": friendToDelete});
   const currentUser = await User.findOne({_id: currentUserId});
 
 
@@ -228,9 +233,9 @@ const getPendingList = async(req,res) => { //could I combine this with the getFr
 }
 
 const removePending = async(req,res) => {
-  const {friendToDelete,currentUserId} = req.body;
+  const {nameToDelete,currentUserId} = req.body;
 
-  const otherUser = await User.findOne({friendToDelete});
+  const otherUser = await User.findOne({"username": nameToDelete});
   const currentUser = await User.findOne({_id: currentUserId});
 
 
@@ -238,7 +243,7 @@ const removePending = async(req,res) => {
     { $pull: { pending: {username: otherUser.username} }});
 
   if(newFriendsList){
-        res.status(200).json(otherUser.username + " is no longer friends with " + currentUser.username);
+        res.status(200).json(otherUser.username + " is no longer on the pending list of  " + currentUser.username);
         console.log("Deleting Friend");
   }
   else {
