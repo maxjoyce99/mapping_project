@@ -11,7 +11,8 @@ const {
     getFriendsList,
     unFriend,
     requestUser,
-    getPendingList
+    getPendingList,
+    removePending
 } = require("../controllers/userController");
 
 
@@ -35,6 +36,9 @@ router.patch('/requestuser', requestUser);
 
 //Delete a friend
 router.patch('/unfriend', unFriend);
+
+//Delete a friend
+router.patch('/removepending', removePending);
 
 //Update A user
 router.patch('/update/:id',updateUser);

@@ -219,12 +219,31 @@ const unFriend = async(req,res) => {
 
 }
 
-const getPendingList = async(req,res) => {
+const getPendingList = async(req,res) => { //could I combine this with the getFriendsList endpoint
   console.log("getFriendsList");
   const { id } = req.params; //gets id from route paramaters
   const currentUser = await User.findOne({_id: id});
   const pendingList = currentUser.pending;
   res.status(200).json(pendingList);
+}
+
+const removePending = async(req,res) => {
+  const {friendToDelete,currentUserId} = req.body;
+
+  const otherUser = await User.findOne({friendToDelete});
+  const currentUser = await User.findOne({_id: currentUserId});
+
+
+  const newFriendsList = await User.findOneAndUpdate({_id: currentUser}, 
+    { $pull: { pending: {username: otherUser.username} }});
+
+  if(newFriendsList){
+        res.status(200).json(otherUser.username + " is no longer friends with " + currentUser.username);
+        console.log("Deleting Friend");
+  }
+  else {
+    res.status(404).json({error: "Failed to take off pending list these users"})
+  }
 }
 
 
@@ -238,6 +257,7 @@ module.exports = {
     getFriendsList,
     unFriend,
     requestUser,
-    getPendingList
+    getPendingList,
+    removePending
     
 }
