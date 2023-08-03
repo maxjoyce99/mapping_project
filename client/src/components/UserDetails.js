@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import useToken from "../hooks/useToken";
+import { useFriendsContext } from "../hooks/useFriendsContext";
 
 const UserDetails = (props) => {
+    const {friends, pending, dispatchFriend} = useFriendsContext();
     const navigate = useNavigate();
     const {token, setToken } = useToken();
 
@@ -33,7 +35,10 @@ const UserDetails = (props) => {
             }
 
             if(response.ok){
+                console.log(json)
+                dispatchFriend({type: 'DELETE_FRIEND', payload: json})
                 console.log("Deleted that friend");
+
             }
 
     }

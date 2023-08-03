@@ -157,7 +157,7 @@ const friendUser = async(req,res) => { //add to eachtohers friends list (endpoin
 
   if(newFriendsList && newFriendsList2){
 
-    res.status(200).json(requestingUser.username + " is now friends with " + currentUser.username);
+    res.status(200).json(requestingUser);
 
   }
   else{
@@ -214,7 +214,7 @@ const unFriend = async(req,res) => {
 
 
   if(newFriendsList && newFriendsList2){
-        res.status(200).json(otherUser.username + " is no longer friends with " + currentUser.username);
+        res.status(200).json(otherUser);
         console.log("Deleting Friend");
   }
   else {
@@ -243,7 +243,7 @@ const removePending = async(req,res) => {
     { $pull: { pending: {username: otherUser.username} }});
 
   if(newFriendsList){
-        res.status(200).json(otherUser.username + " is no longer on the pending list of  " + currentUser.username);
+        res.status(200).json(otherUser);
         console.log("Deleting Friend");
   }
   else {

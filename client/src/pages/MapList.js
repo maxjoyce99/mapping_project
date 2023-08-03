@@ -2,10 +2,10 @@ import { useEffect, useState} from 'react';
 import UserDetails from '../components/UserDetails';
 import useToken from '../hooks/useToken';
 import PendingUser from '../components/PendingUser';
+import { useFriendsContext } from '../hooks/useFriendsContext';
 
 const MapList = (props) => {
-    const [userList, setUserList] = useState([]);
-    const [pendingList, setPendingList] = useState([]);
+    const {friends, pending, dispatchFriend} = useFriendsContext();
     const {token, setToken} = useToken();
     const [userName, setUserName] = useState();
     const [friendResponse, setFriendResponse] = useState();
@@ -20,10 +20,9 @@ const MapList = (props) => {
             
             const json = await response.json();
             
-            if(response.ok) {
-                
-                setUserList(json);
-                console.log(userList);
+            if(response.ok) { 
+                dispatchFriend({type: 'SET_FRIENDS', payload: json});
+                console.log(friends);
             }
             else{
                 console.log("Users could not be found.");
@@ -39,8 +38,8 @@ const MapList = (props) => {
             
             if(response.ok) {
                 
-                setPendingList(json);
-                console.log(userList);
+                dispatchFriend({type: 'SET_PENDING', payload: json})
+                console.log(pending);
             }
             else{
                 console.log("Users could not be found.");
@@ -51,7 +50,7 @@ const MapList = (props) => {
 
         fetchFriends();
         fetchPending();
-        console.log(pendingList);
+        console.log(friends);
         }
 
         
@@ -92,20 +91,26 @@ const MapList = (props) => {
                 <button className = "formButtons">Add a Friend </button>
                 </form>
                 {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
-            <p>Friends List</p>
-            
-            {userList && userList.map((user)=> (
+
+                <div className = "pendinglist">
+                <p>Pending List</p>
+
+                {pending && pending.map((user)=> (
+
+                <PendingUser key={user.username} username={user.username} id={user._id}></PendingUser>
+
+                ))}
+                </div>
+
+                <div className = "friendslist">
+                <p> Friends List</p>
+
+                {friends && friends.map((user)=> (
 
                 <UserDetails key={user.username} username={user.username} id={user._id}></UserDetails>
-                
-            ))}
 
-            {pendingList && pendingList.map((user)=> (
-
-            <PendingUser key={user.username} username={user.username} id={user._id}></PendingUser>
-
-            ))}
-
+                )) }
+                </div>
 
 
             </div>

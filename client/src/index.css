@@ -67,7 +67,7 @@ header a {
   margin: 0 auto;
 }
 
-.home{
+.signIn{
   padding: 20px;
 }
 
@@ -301,4 +301,15 @@ header a {
 
 .deleteImage:hover {
   background: #e7e7e7;
+}
+
+.pendinglist{
+  color:red;
+  position: absolute;
+}
+
+.friendslist{
+  color:green;
+  position: absolute;
+  right:20%;
 }
