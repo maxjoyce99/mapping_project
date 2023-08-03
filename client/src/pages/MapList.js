@@ -83,14 +83,17 @@ const MapList = (props) => {
     if(token._id !== 'NOUSER'){
 
         return (
-            <div>
-                <form className="newFriendForm" onSubmit={nameSubmitted}>
-                <h3> Add a friend</h3>
-                <label>Username</label>
-                <input placeholder='Username' onChange={e => setUserName(e.target.value)}/>
-                <button className = "formButtons">Add a Friend </button>
-                </form>
-                {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
+            <div className='friendsAndPendingPage'>
+
+                <div className="newFriendForm">
+                    <form  onSubmit={nameSubmitted}>
+                    <h3> Add a friend</h3>
+                    <label>Username</label>
+                    <input placeholder='Username' onChange={e => setUserName(e.target.value)}/>
+                    <button className = "formButtons">Add a Friend </button>
+                    </form>
+                    {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
+                </div>
 
                 <div className = "pendinglist">
                 <p>Pending List</p>
@@ -114,6 +117,9 @@ const MapList = (props) => {
 
 
             </div>
+
+
+            
         )
     }
     else{

@@ -44,7 +44,7 @@ const UserDetails = (props) => {
     }
 
     return (
-    <div>
+    <div className="user-details">
         <p>{props.username}</p>
         <button  className ="formButtons" onClick={handleMapClick} >See their map!</button>
         <button className="formButtons" onClick={handleUnfriend} > Remove this friend</button>

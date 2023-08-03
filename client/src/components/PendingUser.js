@@ -89,7 +89,7 @@ const PendingUser = (props) => {
     
 
     return (
-    <div>
+    <div className="user-details">
         <p>{props.username}</p>
         <p>{props.id}</p>
         <button className="formButtons" onClick={addFriend} > Add as Friend</button>
