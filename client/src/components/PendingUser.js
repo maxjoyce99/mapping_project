@@ -49,7 +49,33 @@ const PendingUser = (props) => {
 
             if(response2.ok){
                 console.log("Deleted From pending list");
-                console.log(props.username + props.id)
+                dispatchFriend({type: 'DELETE_PENDING', payload: json2})
+                //setFriendResponse("Adding " + json.username + " to your friends list!");
+            }
+            else{
+                console.log("Couldn't delete from pending list");
+                //setFriendResponse("The user " + userName + " was not found.");
+            }
+
+    }
+
+    const denyRequest = async() => {
+
+        const response2 = await fetch('/api/users/removePending', {
+            method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({"nameToDelete": props.username,
+                                    "currentUserId": token._id})
+            });
+
+            const json2 = await response2.json();
+
+            console.log(json2);
+
+            if(response2.ok){
+                console.log("Deleted From pending list");
                 dispatchFriend({type: 'DELETE_PENDING', payload: json2})
                 //setFriendResponse("Adding " + json.username + " to your friends list!");
             }
@@ -67,6 +93,7 @@ const PendingUser = (props) => {
         <p>{props.username}</p>
         <p>{props.id}</p>
         <button className="formButtons" onClick={addFriend} > Add as Friend</button>
+        <button className="formButtons" onClick={denyRequest}> Deny Request</button>
     </div>
     
 )
