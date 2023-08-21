@@ -23,7 +23,7 @@ export const locationsReducer = (state, action) => {
 
 export const LocationsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(locationsReducer, {
-        locations: [{name: "Example Point", place: [ 38.500000,  -98.000000]},{name: "Create an account and make a map like this!", place: [ 43.500000,  -98.000000]}]
+        locations: []
     });
 
     return (
