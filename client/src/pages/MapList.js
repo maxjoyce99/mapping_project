@@ -3,6 +3,7 @@ import UserDetails from '../components/UserDetails';
 import useToken from '../hooks/useToken';
 import PendingUser from '../components/PendingUser';
 import { useFriendsContext } from '../hooks/useFriendsContext';
+import AddFriendForm from '../components/AddFriendForm';
 
 const MapList = (props) => {
     const {friends, pending, dispatchFriend} = useFriendsContext();
@@ -57,56 +58,25 @@ const MapList = (props) => {
 
     },[]);
 
-    const nameSubmitted = async (e) => {
-        e.preventDefault()
-        const response = await fetch('/api/users/requestuser', {
-        method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({"username": userName,
-        "userId": token._id})
-        });
-
-        const json = await response.json();
-
-        if(response.ok){
-            console.log("Found the user");
-            setFriendResponse("Adding " + json.username + " to your friends list!");
-        }
-        else{
-            console.log("No user found");
-            setFriendResponse("The user " + userName + " was not found.");
-        }
-    }
-
     if(token._id !== 'NOUSER'){
 
         return (
             <div className='friendsAndPendingPage'>
 
-                <div className="newFriendForm">
-                    <form  onSubmit={nameSubmitted}>
-                    <h3> Add a friend</h3>
-                    <label>Username</label>
-                    <input placeholder='Username' onChange={e => setUserName(e.target.value)}/>
-                    <button className = "formButtons">Add a Friend </button>
-                    </form>
-                    {friendResponse && <span className="userfoundSpan">{friendResponse}</span>}
-                </div>
-
+                <AddFriendForm></AddFriendForm>
+                <h3 className="pendingTitle">Pending Requests</h3>
                 <div className = "pendinglist">
-                <p>Pending List</p>
-
+                
+            
                 {pending && pending.map((user)=> (
 
                 <PendingUser key={user.username} username={user.username} id={user._id}></PendingUser>
 
                 ))}
                 </div>
-
+                <h3 className = "friendsTitle"> Friends List</h3>        
                 <div className = "friendslist">
-                <p> Friends List</p>
+                
 
                 {friends && friends.map((user)=> (
 

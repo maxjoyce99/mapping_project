@@ -50,6 +50,8 @@ const Navbar = () => {
         <header>
             <div className="navbar">
 
+                <image className='logo'>Logo</image>
+
                 <Link className="nav-element" to="/">
                     <h1>Home</h1>
 

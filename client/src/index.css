@@ -4,7 +4,7 @@ body {
   height: 100%;
   background: #f1f1f1;
   margin: 0;
-  font-family: "Poppins";
+  font-family: "Libre Franklin", "Verdana", "Geneva", sans-serif;
   max-width:100%;
   font-size: 1em;
 }
@@ -17,16 +17,18 @@ body {
   height: 10px;
 }
 .map{
-  height:100vh;
-  width:100vw;
-  max-width:100%;
-  max-height:85%;
+  height:95%;
+  width:100%;
+  top: 3%;
+  left: 0%;
+  overflow: hidden;
+  position: absolute;
 }
 
 .navbar {
   max-width: 100%;
   margin: 0 auto;
-  height: 4rem;
+  height: 5%;
   max-height:100%;
   display: flex;
   justify-content: right;
@@ -40,8 +42,13 @@ body {
   display: inline-block;
   color:#edf0f1;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  font-size:16px;
+  font-weight: 300;
+  font-size:10px;
+}
+
+.logo{
+  background-color: red;
+  margin-right: auto;
 }
 
 .nav-element :hover {
@@ -70,7 +77,6 @@ header a {
 .pages{
   padding: 0px;
   margin: 0 auto;
-  background: yellow;
 }
 
 .signIn{
@@ -310,39 +316,53 @@ header a {
 }
 
 .pendinglist{
-  color:red;
   position: absolute;
-  right:20%;
-  border: 2px solid black;
+  left: 40%;
   padding: 20px 20px;
-  border-spacing: 20px;
-  width: 40%;
-  position: absolute;
+  width: 30%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 10px;
   row-gap: 0px;
   float:none;
-  top: 10%
+  top: 11%;
 }
 
-.friendslist{
-  color:green;
+.pendingTitle {
   position: absolute;
-  left: 0%;
+  left: 40%;
+  top: 5%;
+  width: 30%;
+  padding: 20px;
+  margin-bottom: 20px;
+
+}
+
+
+
+.friendslist{
+  position: absolute;
+  left: 2%;
   padding: 10px;
-  border-color: #000;
-  border: 2px solid black;
   padding: 20px 20px;
-  border-spacing: 20px;
-  width: 40%;
+  width: 30%;
   position: absolute;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 10px;
   row-gap: 0px;
   float:none;
-  top: 10%
+  top: 11%;
+}
+
+
+.friendsTitle {
+  position: absolute;
+  left: 2%;
+  top: 5%;
+  width: 30%;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .user-details{
@@ -358,12 +378,11 @@ header a {
 }
 
 html {
-  background: #8b90a5;
+  background: #d0d3df;
 }
 
 .newFriendForm{
-  background: pink;
-  right: 20px;
+  right: 1%;
   padding: 20px 20px;
   position: fixed;
   width: 20%;
@@ -376,5 +395,6 @@ html {
 }
 
 .friendsAndPendingPage{
-  padding:0 px;
+  padding: 0 px;
+  height: 100%;
 }
