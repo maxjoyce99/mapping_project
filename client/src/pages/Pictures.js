@@ -34,7 +34,7 @@ const Pictures = () => {
             dispatchImage({type: 'SET_IMAGES', payload: imagePathsTemp});
             }
 
-            if(response.status == "404"){
+            if(response.status === "404"){
                 console.log("PicturesNotFound");
                 setLoading(false);
                 setPics(false);

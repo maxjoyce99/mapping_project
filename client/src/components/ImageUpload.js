@@ -137,7 +137,7 @@ const ImageUpload = () => {
 
     return (
         <div className='imageUpload'> 
-        <h3>Add Pictures </h3>
+        <h3>Add Pictures By Location</h3>
         <form className='imageUploadForm' onSubmit={handleSubmit}>
         <input
                 type="file"
