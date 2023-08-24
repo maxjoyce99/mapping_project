@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 import { useNavigate } from 'react-router-dom';
+import logoImage from '../images/logo.png'
 
 const Navbar = () => {
     const {token, setToken} = useToken();
@@ -46,11 +47,19 @@ const Navbar = () => {
         navigate('/');
     }
 
+    //<img className='logo' src={logoImage}></img>
     return (
         <header>
+
+            
+                    
+    
+            
+
             <div className="navbar">
 
-                <image className='logo'>Logo</image>
+                <img className='logo' src={logoImage}></img>
+                
 
                 <Link className="nav-element" to="/">
                     <h1>Home</h1>
