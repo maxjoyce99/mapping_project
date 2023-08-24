@@ -265,12 +265,19 @@ header a {
   width: 40%;
   position: absolute;
   right: 1%;
-  top: 7%
+  top: 7%;
+  grid-gap: 10px;
 }
 
 .example_map {
   width:50%;
   top:30%;
+  position: absolute;
+  left: 1%
+}
+
+.home_words {
+  left: 1%;
   position: absolute;
 }
 

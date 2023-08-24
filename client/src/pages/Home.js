@@ -11,23 +11,32 @@ import  example_image6 from '../images/example_image6.jpg';
 import  example_image7 from '../images/example_image7.jpg';
 import  example_image8 from '../images/example_image8.jpg';
 import  example_map from '../images/example_map.png';
+import { useNavigate } from 'react-router';
 
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
+    const myMapClicked = () => {
+      console.log("MyMapClicked");
+      navigate("/map", {state: {userId: "64e653532e7d4c3970cb3dd1"}});
+    }
 
     return (
       <div className="home">
 
         <div className='home_words'>
           <h3>Where Have I Been</h3> 
-          <p>Thanks for visiting WhereHaveIBeen.com. Feel free to use the 
-            site in any way you like! To see an example of how
+          <p>Thanks for visiting WhereHaveIBeen.com, a location based pictures sharing
+            website. Make an account and add LocationDetails and pictures, and share this with
+            your friends on the site. To see an example of how
               I imagined this site being used click the button to see my map.
-              Below is an example of what a map could look like. With points of interest marked
-              and when you click on them you can get a series of photos from that location.
+              Below is an example of what a map could look like. With points of interest marked.
+              When you click on them you get a series of photos from that location.
           </p>
 
-          <button>Click to see my map.</button>
+          <button onClick={myMapClicked}>My Map</button>
         </div>
 
         <div className='example_images'>

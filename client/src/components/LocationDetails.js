@@ -91,7 +91,7 @@ const LocationDetails = ({location}) => {
             <p key="place"><strong> Coordinates : </strong>[{Number(location.place[0]).toFixed(2)}, {Number(location.place[1]).toFixed(2)}]</p>
             <p key="timeCreated"><strong> Created On: </strong>{formattedTime}</p>
             
-            <div>
+            <div className="buttonClass">
             <button className="deletelocation" onClick={handleDeleteClick}>Delete</button>
             <button className="modifylocation" onClick={handleModifyClick}>Modify</button>
             </div>
