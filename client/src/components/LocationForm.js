@@ -3,6 +3,8 @@ import { useLocationsContext } from '../hooks/useLocationsContext';
 import useToken from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import {useLocation} from 'react-router-dom';
+import { Tooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css'
 
 const LocationForm = () => {
     const { dispatch } = useLocationsContext();
@@ -113,77 +115,93 @@ const LocationForm = () => {
     }
 
     return(
+        <>
+
+        
+        
+
         <div className="create">
-        <form className="createForm" onSubmit={handleSubmit}>
-            <h3>Add a new location </h3>
- 
-            <label>Location Name: </label>
-            <input
-                className="nameInput"
-                type="text"
-                onChange={((e) => setName(e.target.value))}
-                value={name || ''}
-                placeholder="Name"
-                required = {true}
-                pattern = "^.{1,30}$"
-                onBlur = {handleFocus}
-                lastfocused={lastFocused}
-            />
-            <span className="nameErrorSpan">Name should be 1-30 characters.</span>
-            {error && <span className="submitError">{error}</span>}
 
-            <label>Location Latitude: </label>
-            <input
-                className="latInput"
-                type="number"
-                onChange={((e) => setLat(e.target.value))}
-                value={lat|| ''}
-                placeholder="Latitude"
-                required = {true}
-                onBlur = {handleFocus}
-                lastfocused={lastFocused}
-                min = "-90.00"
-                max = "90.00"
-                step = "any"
-            />
-            <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation.</span>
-
-            <label>Location Longitude: </label>
-            <input
-                className="longInput"
-                type="number"
-                onChange={((e) => setLong(e.target.value))}
-                value={long|| ''}
-                placeholder="Longitude"
-                required = {true}
-                onBlur = {handleFocus}
-                lastfocused={lastFocused}
-                min = "-180.00"
-                max = "180.00"
-                step = "any"
-            />
-            <span className="longErrorSpan">Longitude must be a number between -180 and 180. Do not use E or W designation.</span>
-
-            <label>Add pictures: </label>
-            <input
-            type="file"
-            onChange={((e) => setFiles(e.target.files))}
-            name="images"
-            multiple="yes"
-            className="formButtons"
-            accept=".png, .jpg, .jpeg, .gif"
-            />
+            <Tooltip place='bottom' className='location_tooltip' id="my-tooltip-multiline" />
 
             
-
+            <a className='tooltip_button' data-tooltip-id="my-tooltip-multiline" data-tooltip-html="Accepted file extensions include png, jpg, jpeg, and gif. You can add and remove pictures when needed and don't have to upload any pictures for a location.">?</a>
             
-            <button className="formButtons">Add Location</button>
 
+            <h3 className='new_location_title'>Add a location </h3>
             
-        </form>
-        <button className="formButtons" onClick={chooseMapLocation}>Choose a Location from the Map </button>
-        <p>Accepted file extensions include png, jpg, jpeg, and gif. <br></br> You can add and remove pictures when needed and don't have to upload any pictures for a location.</p>
+
+            <form className="createForm" onSubmit={handleSubmit}>
+                
+    
+                <label>Location Name: </label>
+                <input
+                    className="nameInput"
+                    type="text"
+                    onChange={((e) => setName(e.target.value))}
+                    value={name || ''}
+                    placeholder="Name"
+                    required = {true}
+                    pattern = "^.{1,30}$"
+                    onBlur = {handleFocus}
+                    lastfocused={lastFocused}
+                />
+                <span className="nameErrorSpan">Name should be 1-30 characters.</span>
+                {error && <span className="submitError">{error}</span>}
+
+                <label>Location Latitude: </label>
+                <input
+                    className="latInput"
+                    type="number"
+                    onChange={((e) => setLat(e.target.value))}
+                    value={lat|| ''}
+                    placeholder="Latitude"
+                    required = {true}
+                    onBlur = {handleFocus}
+                    lastfocused={lastFocused}
+                    min = "-90.00"
+                    max = "90.00"
+                    step = "any"
+                />
+                <span className="latErrorSpan">Latitude must be a number between -90 and 90. Do not use N or S designation.</span>
+
+                <label>Location Longitude: </label>
+                <input
+                    className="longInput"
+                    type="number"
+                    onChange={((e) => setLong(e.target.value))}
+                    value={long|| ''}
+                    placeholder="Longitude"
+                    required = {true}
+                    onBlur = {handleFocus}
+                    lastfocused={lastFocused}
+                    min = "-180.00"
+                    max = "180.00"
+                    step = "any"
+                />
+                <span className="longErrorSpan">Longitude must be a number between -180 and 180. Do not use E or W designation.</span>
+
+                <label>Add pictures: </label>
+                <input
+                type="file"
+                onChange={((e) => setFiles(e.target.files))}
+                name="images"
+                multiple="yes"
+                className="formButtons"
+                accept=".png, .jpg, .jpeg, .gif"
+                />
+
+                
+
+                
+                <button className="formButtons">Add Location</button>
+                <button className="formButtons" onClick={chooseMapLocation}>Choose a Location from the Map </button>
+                
+            </form>
+            
+        
         </div>
+        </>
     )
 }
 
