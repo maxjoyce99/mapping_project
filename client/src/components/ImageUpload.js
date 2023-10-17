@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import  EXIF  from 'exif-js';
 import useToken from "../hooks/useToken";
 import { useLocationsContext } from '../hooks/useLocationsContext';
+import { Tooltip } from 'react-tooltip'
+
 
 
 
@@ -27,14 +29,14 @@ const ImageUpload = () => {
     const createLocation = async (newLat,newLong,i) => {
         console.log("Create new location");
         const user = token._id;
-        const name = files[i].name;
+        const tempName = files[i].name;
         var place = [newLat,newLong];
-        
+
+        const name = tempName.split('.').slice(0, -1).join('.'); //removes after first '.'
+
         const location = { name, place, user};
 
         console.log(location);
-        //console.log(newLong);
-        //console.log(newLat);
 
         const response = await fetch('/api/locations', {
             method: 'POST',
@@ -137,6 +139,12 @@ const ImageUpload = () => {
 
     return (
         <div className='imageUpload'> 
+
+        <Tooltip place='bottom' className='location_tooltip' id="my-tooltip-multiline" />
+
+            
+        <a className='tooltip_button' data-tooltip-id="my-tooltip-multiline" data-tooltip-html="This section will add all of your pictures if they have location data attached to them, with the name of the location being the file name. Unfortunately for many pictures this is not the case. Accepted file extensions include png, jpg, jpeg, and gif.">?</a>
+        
         <h3>Add Pictures By Location</h3>
         <form className='imageUploadForm' onSubmit={handleSubmit}>
         <input
