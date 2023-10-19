@@ -9,6 +9,7 @@ const UserDetails = (props) => {
 
 
     const handleMapClick = () => {
+        console.log("Going to Map:" + props.id);
         navigate("/map", {state: {userId: props.id}});
     }
 

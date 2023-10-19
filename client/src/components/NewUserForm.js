@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Popup } from 'react-leaflet';
 import { useNavigate } from "react-router-dom";
+import Login from './LoginForm';
 
 const NewUser = ({ setToken }) => {
 
@@ -11,6 +12,11 @@ const NewUser = ({ setToken }) => {
     const [error,setError] = useState(null);
     const [userCreated,setUserCreated] = useState();
     const [friends, setFriends] = useState([]);
+    const [newUser, setNewUser] = useState(true);
+
+    const handleNewUser = () => {
+        setNewUser(!newUser);
+    }
 
 
     const handleSubmit = async (e) => {
@@ -56,6 +62,8 @@ const NewUser = ({ setToken }) => {
       navigate("/");
     }*/
 
+
+    if(newUser){
     return(
       <div className="registerForm">
         <h1>Please Create a New Account</h1>
@@ -103,10 +111,15 @@ const NewUser = ({ setToken }) => {
           
           <div>
             <button className='formButtons' type="submit"> Register </button>
+            <button className="formButtons" onClick={handleNewUser}> Go Back to Login Page</button>
           </div>
         </form>
       </div>
     )
+    }
+    else{
+      return(<Login></Login>)
+    }
   }
 
 

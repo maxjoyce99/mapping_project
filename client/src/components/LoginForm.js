@@ -47,10 +47,7 @@ const Login = ({ setToken }) => {
     }
     if(newUser) {
       return (
-          <>
       <NewUser></NewUser>
-      <button className="formButtons" onClick={handleNewUser}> Go Back to Login Page</button>
-      </>
       )
     }
   else {
