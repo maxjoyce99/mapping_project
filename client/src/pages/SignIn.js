@@ -23,10 +23,7 @@ const SignIn = () => {
         }
         else {
         return (
-            <>
         <Login setToken={setToken} />
-        <button className="formButtons" onClick={handleNewUser}> Create an Account</button>
-        </>
         )
         }
     }

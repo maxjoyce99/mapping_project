@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import NewUser from '../components/NewUserForm';
 
 const Login = ({ setToken }) => {
 
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [error,setError] = useState(null);
+    const [newUser, setNewUser] = useState(false);
 
 
     const handleSubmit = async (e) => {
@@ -40,8 +42,21 @@ const Login = ({ setToken }) => {
       }
     }
 
+    const handleNewUser = () => {
+      setNewUser(!newUser);
+    }
+    if(newUser) {
+      return (
+          <>
+      <NewUser></NewUser>
+      <button className="formButtons" onClick={handleNewUser}> Go Back to Login Page</button>
+      </>
+      )
+    }
+  else {
 
     return(
+      
       <div className="login-wrapper">
         <h1>Log In</h1>
         <form onSubmit={handleSubmit}>
@@ -58,10 +73,15 @@ const Login = ({ setToken }) => {
 
           <div>
             <button className="formButtons" type="submit"> Login </button>
+            
           </div>
+          <button className="formButtons" onClick={handleNewUser}> Create an Account</button>
         </form>
       </div>
     )
+
+    }
+
   }
 
   Login.propTypes = {

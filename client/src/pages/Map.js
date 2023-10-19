@@ -34,7 +34,7 @@ const Map = () => {
     useEffect(() => {
 
         console.log(token?._id)
-        console.log(location.state?.userId)
+        console.log(location.state?.userId);
 
         if(token?._id === location.state?.userId){
             setOwnership(true);
