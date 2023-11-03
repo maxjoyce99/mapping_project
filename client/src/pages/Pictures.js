@@ -17,14 +17,14 @@ const Pictures = () => {
 
     useEffect(() => {
         const fetchFolder = async () => {
-            const fetchUrl = '/api/pictures/' + token._id  + "/" + location.state.id;
+            const fetchUrl = '/api/pictures/' + location.state.userId  + "/" + location.state.id;
             const response = await fetch(fetchUrl);
             const json = await response.json();
             //set array to nothing first in case of multiple loads
             var imagePathsTemp = [];
 
             for(var i in json){
-                var imagePathStart = "http://localhost:3001/uploads/" + token._id  + "/" + location.state.id + "/"; //use path.join type thing???
+                var imagePathStart = "http://localhost:3001/uploads/" + location.state.userId  + "/" + location.state.id + "/"; //use path.join type thing???
                 imagePathsTemp.push(imagePathStart + json[i]);
             }
 
@@ -42,7 +42,7 @@ const Pictures = () => {
         }
 
         fetchFolder();
-        console.log(imagePaths);
+        console.log(imagePaths[0]);
         if(token._id === location.state.userId){
             setOwnership(true);
         }
@@ -57,6 +57,10 @@ const Pictures = () => {
 
         navigate("/modify", {state: {id: location.state.id, name: location.state.name, place: location.state.place, }});
     }
+
+    console.log("Current User ID: " + token._id);
+    console.log("User ID State: " + location.state.userId);
+    console.log("Location state ID: " + location.state.id);
 
     if(!loading && !pics){
         return (
@@ -73,10 +77,9 @@ const Pictures = () => {
 
     //only show edit pictures button if token._id = location.state.userId
 
-    console.log(token._id);
-    console.log(location.state.userId);
+    
 
-    if(!loading && pics){
+    else if(!loading && pics){
         return (
                 <div className="picturesPage">
                     

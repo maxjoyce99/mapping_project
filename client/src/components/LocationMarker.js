@@ -23,7 +23,7 @@ const LocationMarker = (props) => {
 
     function markerClicked(marker,id){
       
-      //console.log("Marker was clicked at: [" + marker + "] with ID: " + id);
+      console.log("Marker was clicked at: [" + marker + "] with ID: " + id);
     }
 
     return(
