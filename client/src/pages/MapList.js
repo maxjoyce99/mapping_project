@@ -70,7 +70,7 @@ const MapList = (props) => {
             
                 {pending && pending.map((user)=> (
 
-                <PendingUser key={user.username} username={user.username} id={user._id}></PendingUser>
+                <PendingUser key={user.username} username={user.username} id={user.id}></PendingUser>
 
                 ))}
                 </div>
