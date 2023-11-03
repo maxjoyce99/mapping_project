@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Pictures = () => {
-    const {imagePaths, dispatchImage} = useImageContext();
+    //const {imagePaths, dispatchImage} = useImageContext();
     const [loading,setLoading] = useState(true);
     const {token, setToken } = useToken();
     const [pics, setPics] = useState(false);
     const [ownership, setOwnership] = useState(false); 
+    const [imagePaths, setImagePaths] = useState([]);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -31,18 +32,19 @@ const Pictures = () => {
             if(response.ok){
             setLoading(false);
             setPics(true);
-            dispatchImage({type: 'SET_IMAGES', payload: imagePathsTemp});
+            //dispatchImage({type: 'SET_IMAGES', payload: imagePathsTemp});
+            setImagePaths(imagePathsTemp);
             }
 
-            if(response.status === "404"){
-                console.log("PicturesNotFound");
+            if(response.status == "404"){
+                console.log("No pictures found");
                 setLoading(false);
                 setPics(false);
             }
         }
 
         fetchFolder();
-        console.log(imagePaths[0]);
+        console.log("IMAGE PATHS: " + imagePaths[0]);
         if(token._id === location.state.userId){
             setOwnership(true);
         }
@@ -62,24 +64,13 @@ const Pictures = () => {
     console.log("User ID State: " + location.state.userId);
     console.log("Location state ID: " + location.state.id);
 
-    if(!loading && !pics){
-        return (
-        
-        <div>
-        <p>There aren't any pictures for this location.</p>
-        
-        
-        {ownership &&  <button onClick={addPictures}>Add some pictures</button>}
-        </div>
-        
-        )
-    }
+    
 
     //only show edit pictures button if token._id = location.state.userId
 
     
 
-    else if(!loading && pics){
+    if(!loading && pics){
         return (
                 <div className="picturesPage">
                     
@@ -95,9 +86,21 @@ const Pictures = () => {
                 </div>
             )
         }
-    else {
+    else if(loading) {
         return (
             <p>Loading Pictures...</p>
+        )
+    }
+    else if(!loading && !pics){
+        return (
+        
+        <div>
+        <p>There aren't any pictures for this location.</p>
+        
+        
+        {ownership &&  <button onClick={addPictures}>Add some pictures</button>}
+        </div>
+        
         )
     }
 }
