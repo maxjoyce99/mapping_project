@@ -80,7 +80,7 @@ const MapList = (props) => {
 
                 {friends && friends.map((user)=> (
 
-                <UserDetails key={user.username} username={user.username} id={user._id}></UserDetails>
+                <UserDetails key={user.username} username={user.username} id={user.id}></UserDetails>
 
                 )) }
                 </div>
