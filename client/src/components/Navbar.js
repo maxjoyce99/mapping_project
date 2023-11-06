@@ -23,7 +23,7 @@ const Navbar = () => {
         else{
             setLoggedIn(false);
             setLoginButtonText("Sign In");
-            console.log("Logged Out")
+            console.log("Logged Out");
         }
 
     },[token]);
@@ -40,11 +40,10 @@ const Navbar = () => {
 
     const handleSignInOut = (e) => {
         if(loggedIn){
+        navigate('/');
         sessionStorage.clear();
         window.location.reload();
-        navigate('/signIn');
         }
-        navigate('/');
     }
 
     //<img className='logo' src={logoImage}></img>

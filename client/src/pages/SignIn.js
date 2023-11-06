@@ -32,7 +32,7 @@ const SignIn = () => {
         return (
             <div className="signIn">
 
-                  <p> Successfully logged in as user {token.username} </p>  
+                  <p> Successfully logged in as user {token.username}.</p>  
             </div>
         )
     }
