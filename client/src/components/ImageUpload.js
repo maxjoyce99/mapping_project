@@ -145,7 +145,7 @@ const ImageUpload = () => {
             
         <a className='tooltip_button' data-tooltip-id="my-tooltip-multiline" data-tooltip-html="This section will add all of your pictures if they have location data attached to them, with the name of the location being the file name. Unfortunately for many pictures this is not the case. Accepted file extensions include png, jpg, jpeg, and gif.">?</a>
         
-        <h3>Add Pictures By Location</h3>
+        <h3>Add Picture Batch</h3>
         <form className='imageUploadForm' onSubmit={handleSubmit}>
         <input
                 type="file"
@@ -156,7 +156,7 @@ const ImageUpload = () => {
                 accept=".png, .jpg, .jpeg, .gif"
                 />
                 
-        <button className="formButtons">Add Pictures</button>
+        <button className="formButtons batchUpload">Add Pictures</button>
         </form>
         </div>
     )

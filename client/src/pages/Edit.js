@@ -1,6 +1,7 @@
 import { useEffect} from 'react';
 import { useLocationsContext } from '../hooks/useLocationsContext';
 import useToken from "../hooks/useToken";
+import { useState } from 'react';
 
 //components
 import LocationDetails from '../components/LocationDetails';
@@ -11,6 +12,7 @@ import ImageUpload from '../components/ImageUpload';
 const Edit = () => {
     const {token, setToken } = useToken();
     const {locations, dispatch} = useLocationsContext();
+    const [batchUpload,setBatchUpload] = useState(false);
 
     useEffect(() => {
         const fetchLocations = async () => {
@@ -33,6 +35,11 @@ const Edit = () => {
 
     },[]);
 
+    const batchUploadClicked = () => {
+        console.log("Batch Upload")
+        setBatchUpload(!batchUpload);
+    }
+
     //console.log(locations);
     if(token){
     return (
@@ -44,8 +51,8 @@ const Edit = () => {
                 </div>
             
                 <LocationForm />
-                <ImageUpload />
-                
+                { batchUpload && <ImageUpload display="false"></ImageUpload>}
+                <button className='formButtons batchUploadToggle' onClick={batchUploadClicked}>Batch Upload</button>
             </div>
         )
     }

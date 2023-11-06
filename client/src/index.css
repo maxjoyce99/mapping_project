@@ -131,6 +131,12 @@ header a {
   margin: 10px;
 }
 
+.batchUploadToggle{
+  position: fixed;
+  right: 16.25%;
+  bottom: 38.75%;
+}
+
 
 .locations{
   padding: 20px 20px;
