@@ -16,6 +16,7 @@ body {
 .button {
   height: 10px;
 }
+
 .map{
   height:95%;
   width:100%;
@@ -23,6 +24,29 @@ body {
   left: 0%;
   overflow: hidden;
   position: absolute;
+}
+
+.home_map{
+  width:55%;
+  height:80%;
+  top: 2.5%;
+  position: absolute;
+  overflow: hidden;
+  left: 1%;
+}
+
+.home_buttons {
+  width: 50%;
+  bottom: 15%;
+  position:absolute;
+  left: 45%;
+}
+
+.example_map {
+  width:50%;
+  top:30%;
+  position: absolute;
+  left: 1%;
 }
 
 .navbar {
@@ -247,9 +271,7 @@ header a {
   width: 70%;
 }
 
-.home_words {
-  width: 50%
-}
+
 
 .example_images {
   display: grid;
@@ -261,12 +283,7 @@ header a {
   grid-gap: 10px;
 }
 
-.example_map {
-  width:50%;
-  top:30%;
-  position: absolute;
-  left: 1%
-}
+
 
 .home_words {
   left: 1%;
@@ -344,6 +361,8 @@ header a {
   padding-right: 1%;
   
 }
+
+
 
 .new_location_title{
   position:absolute;
