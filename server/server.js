@@ -31,17 +31,16 @@ app.use("/api/users", userRoutes);
 //static files middleware
 app.use('/uploads', express.static('uploads'));
 
-//login route
-
+//listen for requests
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
+});
 
 //Connect to database(waits to connect before starting server, should probably change this)
 console.log(process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    //listen for requests
-    app.listen(PORT, () => {
-      console.log(`Server listening on ${PORT}`);
-    });
+
   })
   .catch((err) => {
     console.log(err);
