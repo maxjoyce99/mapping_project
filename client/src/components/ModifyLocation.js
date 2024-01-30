@@ -193,10 +193,14 @@ const ModifyLocation = (props) => {
     return(
         <>
         <div className="create">
-        <form className="createForm" onSubmit={changeLocation}>
-            <h3>Modify this location: </h3>
+        <h3 className='new_location_title'>Modify this location: </h3>
+        <div className="old_location_name">
             <p>Current Name: {name} </p>
             <p>Current Coordinates: [{Number(lat).toFixed(2)},{Number(long)}] </p>
+        </div>
+        
+        <form className="createForm" onSubmit={changeLocation}>
+            
         
        
             <label>New Location Name:</label>

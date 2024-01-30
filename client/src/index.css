@@ -340,7 +340,7 @@ header a {
   border: 2px solid black;
   border-radius: 4px;
   float: right;
-  height: 60%;
+  height: 50%;
   margin: 10px;
   top: 10%;
 }
@@ -349,6 +349,7 @@ header a {
   position: absolute;
   top: 10%;
   left: 5%;
+  width: 90%;
 }
 
 .location_tooltip {
