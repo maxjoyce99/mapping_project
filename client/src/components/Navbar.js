@@ -50,11 +50,6 @@ const Navbar = () => {
     return (
         <header>
 
-            
-                    
-    
-            
-
             <div className="navbar">
 
                 <img className='logo' src={logoImage}></img>
