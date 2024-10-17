@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 import { useNavigate } from 'react-router-dom';
-import logoImage from '../images/logo.png'
+import logoImage from '../images/website_logo.jpeg'
 
 const Navbar = () => {
     const {token, setToken} = useToken();
